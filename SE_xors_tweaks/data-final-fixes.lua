@@ -9,7 +9,8 @@ local casting_machine_speed_factor = 2
 data.raw["assembling-machine"]["se-casting-machine"].crafting_speed = data.raw["assembling-machine"]["se-casting-machine"].crafting_speed * casting_machine_speed_factor
 
 -- increase energy_usage to balance out the fewer needed machines and the steam return of water cooling
-data.raw["assembling-machine"]["se-casting-machine"].energy_usage = "100kW" -- "50kW" *2
+local casting_machine_energy_usage_old = string.match(data.raw["assembling-machine"]["se-casting-machine"].energy_usage, "%A+")
+data.raw["assembling-machine"]["se-casting-machine"].energy_usage = casting_machine_energy_usage_old * casting_machine_speed_factor .. "kW"
 
 -- reduce number of module slots of AAI industrial furnace from 5 to 4 so K2 advanced furnace (with 5 slots) is more of an upgrade
 --data.raw["assembling-machine"]["industrial-furnace"].module_specification = { module_slots = 4 }
