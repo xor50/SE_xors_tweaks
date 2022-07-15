@@ -3,6 +3,8 @@ Version: 1.0.4
 Date: 13. 07. 2022
   Changes:
     - mod name change
+    - improved tech names
+  Fixes:
     - minor behind the scenes code changes
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.3
