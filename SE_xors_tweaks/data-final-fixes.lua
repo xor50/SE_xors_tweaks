@@ -5,7 +5,8 @@ if mods["Krastorio2"]
 end
 
 -- increase speed (by factor of 2) of casting machine so that a less ridicoulous number of machines is needed
-data.raw["assembling-machine"]["se-casting-machine"].crafting_speed = data.raw["assembling-machine"]["se-casting-machine"].crafting_speed * 2
+local casting_machine_speed_factor = 2
+data.raw["assembling-machine"]["se-casting-machine"].crafting_speed = data.raw["assembling-machine"]["se-casting-machine"].crafting_speed * casting_machine_speed_factor
 
 -- increase energy_usage to balance out the fewer needed machines and the steam return of water cooling
 data.raw["assembling-machine"]["se-casting-machine"].energy_usage = "100kW" -- "50kW" *2
@@ -19,37 +20,37 @@ end
 local mod_prefix = "xor-"
 -- local molten = "se%-molten"
 local molten = "molten"
-local reduction = 2 -- make denser by this factor
+local denseness_factor = 2 -- make denser by this factor
 local add_cryo = {}
 local add_water = {}
 local ingot = "ingot"
---local boost_reduction = 0.9
+--local boost = 0.9
 
 -- make molten metal denser (as in: recipes put out less and recipes require less)
 for name, recipe in pairs(data.raw["recipe"]) do
-    if recipe.ingredients ~= nil then 
+    if recipe.ingredients ~= nil then
         for key, ingredient in pairs(recipe.ingredients) do
-            if ingredient.name ~= nil then 
+            if ingredient.name ~= nil then
                 if string.find(ingredient.name, molten) then
-                    ingredient.amount = ingredient.amount/reduction
+                    ingredient.amount = ingredient.amount/denseness_factor
                     table.insert(add_cryo, recipe.name) -- add new cryo recipes
 					table.insert(add_water, recipe.name) -- add new cryo recipes
-                end 
+                end
             end
-        end 
+        end
     end
     if recipe.result then
         if string.find(recipe.result, molten) then
-            recipe.result_count = recipe.result_count/reduction
+            recipe.result_count = recipe.result_count/denseness_factor
         end
     elseif recipe.results then
         for key, result in pairs(recipe.results) do
-            if result.name ~= nil then 
+            if result.name ~= nil then
                 if string.find(result.name, molten) then
-                    result.amount = result.amount/reduction
-                end 
+                    result.amount = result.amount/denseness_factor
+                end
             end
-        end 
+        end
     end
     --if recipe.category == "kiln" then recipe.category = "smelting" end
 end
@@ -220,17 +221,17 @@ local function add_cryoslush_cooled_ingot(recipe_name)
         end
     elseif recipe.results then
         for key, result in pairs(recipe.results) do
-            if result.name ~= nil then 
+            if result.name ~= nil then
                 if string.find(result.name, ingot) then
                     is_ingot = true
                 end
             end
-            if result[1] ~= nil then 
+            if result[1] ~= nil then
                 if string.find(result[1], ingot) then
                     is_ingot = true
                 end
             end
-        end 
+        end
     end
     if is_ingot then
         local new_recipe = table.deepcopy(recipe)
@@ -238,10 +239,10 @@ local function add_cryoslush_cooled_ingot(recipe_name)
         table.insert(new_recipe.ingredients, {type="fluid", name="se-cryonite-slush", amount = 4})
         new_recipe.energy_required = new_recipe.energy_required / 2.5
         --[[for key, ingredient in pairs(new_recipe.ingredients) do
-            if ingredient.name ~= nil then 
+            if ingredient.name ~= nil then
                 if string.find(ingredient.name, molten) then
-                    ingredient.amount = ingredient.amount * boost_reduction
-                end 
+                    ingredient.amount = ingredient.amount * boost
+                end
             end
         end]]
         data:extend({new_recipe})
@@ -264,7 +265,7 @@ local function add_cryoslush_cooled_ingot(recipe_name)
                 shift = {7,7}
             })
         elseif data.raw["item"][recipe.name].icon then
-            new_recipe.icons = 
+            new_recipe.icons =
             {
                 {
                     icon = data.raw["item"][recipe.name].icon,
@@ -278,7 +279,7 @@ local function add_cryoslush_cooled_ingot(recipe_name)
                 }
             }
         elseif data.raw["recipe"][recipe.name].icon then
-            new_recipe.icons = 
+            new_recipe.icons =
             {
                 {
                     icon = data.raw["recipe"][recipe.name].icon,
@@ -310,17 +311,17 @@ local function add_water_cooled_ingot(recipe_name)
         end
     elseif recipe.results then
         for key, result in pairs(recipe.results) do
-            if result.name ~= nil then 
+            if result.name ~= nil then
                 if string.find(result.name, ingot) then
                     is_ingot = true
                 end
             end
-            if result[1] ~= nil then 
+            if result[1] ~= nil then
                 if string.find(result[1], ingot) then
                     is_ingot = true
                 end
             end
-        end 
+        end
     end
     if is_ingot then
         local new_recipe = table.deepcopy(recipe)
@@ -350,7 +351,7 @@ local function add_water_cooled_ingot(recipe_name)
                 shift = {7,7}
             })
         elseif data.raw["item"][recipe.name].icon then
-            new_recipe.icons = 
+            new_recipe.icons =
             {
                 {
                     icon = data.raw["item"][recipe.name].icon,
@@ -364,7 +365,7 @@ local function add_water_cooled_ingot(recipe_name)
                 }
             }
         elseif data.raw["recipe"][recipe.name].icon then
-            new_recipe.icons = 
+            new_recipe.icons =
             {
                 {
                     icon = data.raw["recipe"][recipe.name].icon,
