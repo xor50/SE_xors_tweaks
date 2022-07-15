@@ -1,0 +1,20 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 13. 07. 2022
+  Fixes:
+    - Fixed current error in K2+SE which made Logistics Bots have to much cargo capacity. (will probably get removed if fixed in SE)
+---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 12. 07. 2022
+  Fixes:
+    - Change to AAI Industrial Furnace should now only apply if K2 is installed.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 12. 07. 2022
+  Fixes:
+    - Fixed mod not working because I forgot to test a change.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 12. 07. 2022
+  Updates:
+    - Initial release.
