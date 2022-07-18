@@ -386,3 +386,33 @@ end
 for key, value in pairs(add_water) do
     add_water_cooled_ingot(value)
 end
+
+
+local se_mod_prefix = "se-"
+
+local function landfil_recipe(item_name, count)
+  data:extend({
+    {
+      type = "recipe",
+      name = "landfill-"..item_name,
+      energy_required = 1,
+      enabled = false,
+      category = "hard-recycling",
+      icons = {
+        {icon = data.raw.item.landfill.icon, icon_size = data.raw.item.landfill.icon_size},
+        {icon = data.raw.item[item_name].icon, icon_size = data.raw.item[item_name].icon_size, scale = 0.33*64/data.raw.item[item_name].icon_size},
+      },
+      ingredients =
+      {
+        {item_name, count}
+      },
+      result= "landfill",
+      result_count = 1,
+      order = "z-b-"..item_name,
+      allow_decomposition = false,
+    }
+  })
+  table.insert(data.raw["technology"][se_mod_prefix.."recycling-facility"].effects, {type = "unlock-recipe",recipe = "landfill-"..item_name})
+end
+
+landfil_recipe("coal", 50)

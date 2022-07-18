@@ -1,6 +1,6 @@
 {
 	"name": "SE_xors_tweaks",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"title": "xors Space Exploration Tweaks (better Casting and more)",
 	"author": "xor, Wretlaw120, Rekales",
 	"description": "Increases density of liquid metals, increases casting speed of casting machine, reduces module slots of industrial furnace by one for balancing reasons, adds new casting cooling recipes.",
