@@ -1,25 +1,29 @@
+local mod_prefix = "xor-"
 
--- fix K2 bots having way too large cargo size
-if mods["Krastorio2"]
-    then data.raw["logistic-robot"]["logistic-robot"].max_payload_size = 2
+-- K2: fix bots having way too large cargo size with K2 (oversight by SE integration?)
+if mods["Krastorio2"] then
+  data.raw["logistic-robot"]["logistic-robot"].max_payload_size = 2
 end
 
--- increase speed (by factor of 2) of casting machine so that a less ridicoulous number of machines is needed
+if mods["Krastorio2"] then
+  -- K2: reduce number of module slots of AAI industrial furnace from 5 to 4 so K2 advanced furnace (with 5 slots) is more of an upgrade
+  data.raw["assembling-machine"]["industrial-furnace"].module_specification = { module_slots = 4 }
+
+  -- K2: nerf - was too strong compared to normal chem plant
+  data.raw["assembling-machine"]["kr-advanced-chemical-plant"].crafting_speed = 6
+  -- reduce power usage accordingly
+  local advanced_chemical_plant_energy_usage_old = string.match(data.raw["assembling-machine"]["kr-advanced-chemical-plant"].energy_usage, "%A+")
+  data.raw["assembling-machine"]["kr-advanced-chemical-plant"].energy_usage = advanced_chemical_plant_energy_usage_old * 6/8 .. "MW"
+end
+
+-- SE: increase speed (by factor of 2) of casting machine so that a less ridicoulous number of machines is needed
 local casting_machine_speed_factor = 2
 data.raw["assembling-machine"]["se-casting-machine"].crafting_speed = data.raw["assembling-machine"]["se-casting-machine"].crafting_speed * casting_machine_speed_factor
 
--- increase energy_usage to balance out the fewer needed machines and the steam return of water cooling
+-- SE: increase energy_usage to balance out the fewer needed machines and the steam return of water cooling
 local casting_machine_energy_usage_old = string.match(data.raw["assembling-machine"]["se-casting-machine"].energy_usage, "%A+")
 data.raw["assembling-machine"]["se-casting-machine"].energy_usage = casting_machine_energy_usage_old * casting_machine_speed_factor .. "kW"
 
--- reduce number of module slots of AAI industrial furnace from 5 to 4 so K2 advanced furnace (with 5 slots) is more of an upgrade
---data.raw["assembling-machine"]["industrial-furnace"].module_specification = { module_slots = 4 }
-if data.raw["assembling-machine"]["kr-advanced-furnace"]
-    then data.raw["assembling-machine"]["industrial-furnace"].module_specification = { module_slots = 4 }
-end
-
-local mod_prefix = "xor-"
--- local molten = "se%-molten"
 local molten = "molten"
 local denseness_factor = 2 -- make denser by this factor
 local add_cryo = {}
@@ -57,7 +61,7 @@ for name, recipe in pairs(data.raw["recipe"]) do
 end
 
 
--- add cryo tech
+-- add cryo cooling tech
 data:extend{
     {
     name = mod_prefix .. "cryo-cooling-ingots",
@@ -123,7 +127,7 @@ data:extend{
 
 local cryo_tech = data.raw["technology"][mod_prefix .. "cryo-cooling-ingots"]
 
--- add water tech
+-- add water cooling tech
 data:extend{
     {
     name = mod_prefix .. "water-cooling-ingots",
@@ -164,7 +168,7 @@ data:extend{
 
 local water_tech = data.raw["technology"][mod_prefix .. "water-cooling-ingots"]
 
--- add fluid boxes to casting machine
+-- add fluid boxes to casting machine to enable new cooling recipes
 data.raw["assembling-machine"]["se-casting-machine"].fluid_boxes =
 {
   {
@@ -176,7 +180,6 @@ data.raw["assembling-machine"]["se-casting-machine"].fluid_boxes =
     height = 2,
     pipe_connections = {{ type="input-output", position = {-2, .5} }},
     secondary_draw_orders = { north = -1, east = -1, west = -1 },
-    --filter = "se-cryonite-slush",
   },
   {
     production_type = "output",
@@ -197,7 +200,6 @@ data.raw["assembling-machine"]["se-casting-machine"].fluid_boxes =
     height = 2,
     pipe_connections = {{ type="input-output", position = {2, .5} }},
     secondary_draw_orders = { north = -1, east = -1, west = -1 },
-    --filter = "se-cryonite-slush",
   },
   {
     production_type = "input",
@@ -298,7 +300,7 @@ local function add_cryoslush_cooled_ingot(recipe_name)
 end
 
 for key, value in pairs(add_cryo) do
-    add_cryoslush_cooled_ingot(value)
+  add_cryoslush_cooled_ingot(value)
 end
 
 -- add new water recipes
@@ -384,12 +386,10 @@ local function add_water_cooled_ingot(recipe_name)
 end
 
 for key, value in pairs(add_water) do
-    add_water_cooled_ingot(value)
+  add_water_cooled_ingot(value)
 end
 
-
-local se_mod_prefix = "se-"
-
+-- add landfill from coal
 local function landfil_recipe(item_name, count)
   data:extend({
     {
@@ -412,226 +412,59 @@ local function landfil_recipe(item_name, count)
       allow_decomposition = false,
     }
   })
-  table.insert(data.raw["technology"][se_mod_prefix.."recycling-facility"].effects, {type = "unlock-recipe",recipe = "landfill-"..item_name})
+  table.insert(data.raw["technology"]["se-recycling-facility"].effects, {type = "unlock-recipe",recipe = "landfill-"..item_name})
 end
 
 landfil_recipe("coal", 50)
 
--- fuel value for hydrogen
-data.raw["fluid"]["hydrogen"].fuel_value = "500kJ"
-data.raw["fluid"]["hydrogen"].emissions_multiplier = 0.5
+if mods["Krastorio2"] then
+  -- K2: fuel value for hydrogen
+  data.raw["fluid"]["hydrogen"].fuel_value = "450kJ"
+  data.raw["fluid"]["hydrogen"].emissions_multiplier = 0.5
 
--- fuel value for light oil
-data.raw["fluid"]["light-oil"].fuel_value = "600kJ"
-data.raw["fluid"]["light-oil"].emissions_multiplier = 1.5
+  -- K2: fuel value for light oil
+  data.raw["fluid"]["light-oil"].fuel_value = "600kJ"
+  data.raw["fluid"]["light-oil"].emissions_multiplier = 1.5
 
--- advanced explosives recipe
-data:extend({
-  {
-    type = "recipe",
-    name = mod_prefix .. "advanced-explosives",
-    energy_required = 3,
-    enabled = false,
-    category = "chemistry",
-    icons = {
-      {icon = data.raw.item.explosives.icon, icon_size = data.raw.item.explosives.icon_size},
-      {
-        icon = data.raw.fluid.ammonia.icon,
-        icon_size = data.raw.fluid.ammonia.icon_size,
-        scale = 0.25*64/data.raw.fluid.ammonia.icon_size,
-        shift = {-9, 9}
-      },
-      {
-        icon = data.raw.fluid["nitric-acid"].icon,
-        icon_size = data.raw.fluid["nitric-acid"].icon_size,
-        scale = 0.25*64/data.raw.fluid["nitric-acid"].icon_size,
-        shift = {9, 9}
-      },
-    },
-    ingredients =
+  -- K2:
+  -- QoL: swap fluid outputs to match inputs of another recipe
+  -- just copied from original and swapped outputs
+  data.raw["assembling-machine"]["kr-electrolysis-plant"].fluid_boxes =
     {
-      {type="fluid", name="ammonia", amount = 10},
-      {type="fluid", name="nitric-acid", amount = 10}
-    },
-    result = "explosives",
-    result_count = 3,
-    order = item_name,
-    allow_decomposition = true,
-    --from vanilla explosives recipe:
-    crafting_machine_tint = {
-      primary = {r = 0.968, g = 0.381, b = 0.259, a = 1.000}, -- #f66142ff
-      secondary = {r = 0.892, g = 0.664, b = 0.534, a = 1.000}, -- #e3a988ff
-      tertiary = {r = 1.000, g = 0.978, b = 0.513, a = 1.000}, -- #fff982ff
-      quaternary = {r = 0.210, g = 0.170, b = 0.013, a = 1.000}, -- #352b03ff
+      -- Input
+      {
+        production_type = "input",
+        pipe_covers = pipecoverspictures(),
+        pipe_picture = kr_pipe_path,
+        base_area = 10,
+        base_level = -1,
+        pipe_connections = { { type = "input", position = { -3, -1 } } },
+      },
+      {
+        production_type = "input",
+        pipe_covers = pipecoverspictures(),
+        pipe_picture = kr_pipe_path,
+        base_area = 10,
+        base_level = -1,
+        pipe_connections = { { type = "input", position = { -3, 1 } } },
+      },
+      -- Output
+      {
+        production_type = "output",
+        pipe_covers = pipecoverspictures(),
+        pipe_picture = kr_pipe_path,
+        base_area = 10,
+        base_level = 1,
+        pipe_connections = { { type = "output", position = { 3, 1 } } },
+      },
+      {
+        production_type = "output",
+        pipe_covers = pipecoverspictures(),
+        pipe_picture = kr_pipe_path,
+        base_area = 10,
+        base_level = 1,
+        pipe_connections = { { type = "output", position = { 3, -1 } } },
+      },
+      off_when_no_fluid_recipe = false,
     }
-  }
-})
-
--- advanced explosives tech
-data:extend{
-  {
-  name = mod_prefix .. "advanced-explosives",
-  type = "technology",
-  icons = {
-    {
-      icon = data.raw["technology"]["explosives"].icon,
-      icon_size = data.raw["technology"]["explosives"].icon_size,
-    },
-    {
-      icon = data.raw["fluid"]["ammonia"].icon,
-      icon_size = data.raw["fluid"]["ammonia"].icon_size,
-      scale = 1.5,
-      shift = {-70,70},
-    },
-    {
-      icon = data.raw["fluid"]["nitric-acid"].icon,
-      icon_size = data.raw["fluid"]["nitric-acid"].icon_size,
-      scale = 1.5,
-      shift = {70,70},
-    },
-  },
-  unit = {
-    count = 300,
-    ingredients = {
-      {"automation-science-pack", 1},
-      {"logistic-science-pack", 1},
-      {"chemical-science-pack", 1},
-      {"se-rocket-science-pack", 1},
-    },
-    time = 60,
-  },
-  prerequisites = {
-    "kr-advanced-chemistry",
-    "explosives"
-  },
-  effects = {
-    {type = "unlock-recipe", recipe = mod_prefix .. "advanced-explosives"}
-  },
-  },
-}
-
--- mineral water filtering recipe
-data:extend({
-  {
-    type = "recipe",
-    name = mod_prefix .. "mineral-water-filtering",
-    energy_required = 4,
-    enabled = false,
-    --enabled = true,
-    category = "fluid-filtration",
-    --subgroup = "raw-material",
-    icons = {
-      {icon = data.raw["fluid"]["dirty-water"].icon, icon_size = data.raw["fluid"]["dirty-water"].icon_size},
-      {
-        icon = data.raw.fluid["mineral-water"].icon,
-        icon_size = data.raw.fluid["mineral-water"].icon_size,
-        scale = 0.33*64/data.raw.fluid["mineral-water"].icon_size,
-        shift = {5, 5}
-      },
-    },
-    ingredients =
-    {
-      {type="fluid", name="mineral-water", amount = 100}
-    },
-    results = {
-      {type="fluid", name="dirty-water", amount = 50},
-      {type="item", name="sand", amount_min = 1, amount_max = 5},
-      {type="item", name="quartz", probability = 0.15, amount = 1},
-      {type="item", name="rare-metals", probability = 0.05, amount = 1},
-      {type="item", name="lithium", probability = 0.05, amount = 1}
-    },
-    main_product = "dirty-water",
-    order = item_name,
-    allow_decomposition = true,
-    crafting_machine_tint = {
-      primary = { r = 0.96, g = 0.64, b = 0.38, a = 0.6 }, --dirty
-      secondary = { r = 0.55, g = 0.55, b = 0.51, a = 0.5 }, --clear
-    }
-  }
-})
-
--- mineral water filtering tech
-data:extend{
-{
-  name = mod_prefix .. "mineral-water-filtering",
-  type = "technology",
-  icons = {
-    {
-      icon = data.raw["item"]["kr-filtration-plant"].icon,
-      icon_size = data.raw["item"]["kr-filtration-plant"].icon_size,
-      --scale = 1.0,
-    },
-    {
-      icon = data.raw["fluid"]["mineral-water"].icon,
-      icon_size = data.raw["fluid"]["mineral-water"].icon_size,
-      scale = 0.5,
-      shift = {-20,20},
-    },
-    {
-      icon = data.raw["fluid"]["dirty-water"].icon,
-      icon_size = data.raw["fluid"]["dirty-water"].icon_size,
-      scale = 0.5,
-      shift = {20,20},
-    },
-  },
-  unit = {
-    count = 150,
-    ingredients = {
-      {"automation-science-pack", 1},
-      {"logistic-science-pack", 1},
-      {"chemical-science-pack", 1},
-    },
-    time = 45,
-  },
-  prerequisites = {
-    "kr-mineral-water-gathering"
-  },
-  effects = {
-    {type = "unlock-recipe", recipe = mod_prefix .. "mineral-water-filtering"}
-  },
-  },
-}
-
--- nerf: was too strong compared to normal chem plant
-data.raw["assembling-machine"]["kr-advanced-chemical-plant"].crafting_speed = 6
-
--- QoL: swap fluid outputs to match inputs of another recipe
--- just copied from original and swapped outputs
-data.raw["assembling-machine"]["kr-electrolysis-plant"].fluid_boxes =
-  {
-    -- Input
-    {
-      production_type = "input",
-      pipe_covers = pipecoverspictures(),
-      pipe_picture = kr_pipe_path,
-      base_area = 10,
-      base_level = -1,
-      pipe_connections = { { type = "input", position = { -3, -1 } } },
-    },
-    {
-      production_type = "input",
-      pipe_covers = pipecoverspictures(),
-      pipe_picture = kr_pipe_path,
-      base_area = 10,
-      base_level = -1,
-      pipe_connections = { { type = "input", position = { -3, 1 } } },
-    },
-    -- Output
-    {
-      production_type = "output",
-      pipe_covers = pipecoverspictures(),
-      pipe_picture = kr_pipe_path,
-      base_area = 10,
-      base_level = 1,
-      pipe_connections = { { type = "output", position = { 3, 1 } } },
-    },
-    {
-      production_type = "output",
-      pipe_covers = pipecoverspictures(),
-      pipe_picture = kr_pipe_path,
-      base_area = 10,
-      base_level = 1,
-      pipe_connections = { { type = "output", position = { 3, -1 } } },
-    },
-    off_when_no_fluid_recipe = false,
-  }
+end

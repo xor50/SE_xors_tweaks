@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.1
+Date: 29. 07. 2022
+  Features:
+    - Made some of the mod's features toggleable via settings. (WIP)
+  Changes:
+    - Reduced Hydrogen fuel value very slightly to a more fitting number.
+  Bugfixes:
+    - Reduced power usage of Advanced Chemical Plant to fit its reduced crafting speed.
+  Info:
+    - Some internal code changes.
+---------------------------------------------------------------------------------------------------
 Version: 1.1.0
 Date: 28. 07. 2022
   Features:
