@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.2
+Date: 29. 07. 2022
+  Features:
+    - Made more of the mod's features toggleable via settings. (WIP)
+  Info:
+    - Some internal code style changes.
+---------------------------------------------------------------------------------------------------
 Version: 1.1.1
 Date: 29. 07. 2022
   Features:

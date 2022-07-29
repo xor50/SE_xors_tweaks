@@ -33,138 +33,132 @@ local ingot = "ingot"
 
 -- make molten metal denser (as in: recipes put out less and recipes require less)
 for name, recipe in pairs(data.raw["recipe"]) do
-    if recipe.ingredients ~= nil then
-        for key, ingredient in pairs(recipe.ingredients) do
-            if ingredient.name ~= nil then
-                if string.find(ingredient.name, molten) then
-                    ingredient.amount = ingredient.amount/denseness_factor
-                    table.insert(add_cryo, recipe.name) -- add new cryo recipes
-					table.insert(add_water, recipe.name) -- add new cryo recipes
-                end
-            end
+  if recipe.ingredients ~= nil then
+    for key, ingredient in pairs(recipe.ingredients) do
+      if ingredient.name ~= nil then
+        if string.find(ingredient.name, molten) then
+          ingredient.amount = ingredient.amount/denseness_factor
+          table.insert(add_cryo, recipe.name) -- add new cryo recipes
+          table.insert(add_water, recipe.name) -- add new cryo recipes
         end
+      end
     end
-    if recipe.result then
-        if string.find(recipe.result, molten) then
-            recipe.result_count = recipe.result_count/denseness_factor
-        end
-    elseif recipe.results then
-        for key, result in pairs(recipe.results) do
-            if result.name ~= nil then
-                if string.find(result.name, molten) then
-                    result.amount = result.amount/denseness_factor
-                end
-            end
-        end
+  end
+  if recipe.result then
+    if string.find(recipe.result, molten) then
+        recipe.result_count = recipe.result_count/denseness_factor
     end
-    --if recipe.category == "kiln" then recipe.category = "smelting" end
+  elseif recipe.results then
+    for key, result in pairs(recipe.results) do
+      if result.name ~= nil then
+        if string.find(result.name, molten) then
+          result.amount = result.amount/denseness_factor
+        end
+      end
+    end
+  end
+  --if recipe.category == "kiln" then recipe.category = "smelting" end
 end
 
 
 -- add cryo cooling tech
-data:extend{
+data:extend{{
+  name = mod_prefix .. "cryo-cooling-ingots",
+  type = "technology",
+  icons = {
     {
-    name = mod_prefix .. "cryo-cooling-ingots",
-    type = "technology",
-    icons = {
-        {
-            icon = data.raw["technology"]["se-processing-cryonite"].icon,
-            icon_size = data.raw["technology"]["se-processing-cryonite"].icon_size,
-        },
-        {
-            icon = data.raw["item"]["se-iron-ingot"].icon,
-            icon_size = data.raw["item"]["se-iron-ingot"].icon_size,
-            scale = .5,
-            shift = {48,48},
-        },
-        {
-            icon = data.raw["item"]["se-copper-ingot"].icon,
-            icon_size = data.raw["item"]["se-copper-ingot"].icon_size,
-            scale = .5,
-            shift = {16,48},
-        },
-        {
-            icon = data.raw["item"]["se-holmium-ingot"].icon,
-            icon_size = data.raw["item"]["se-holmium-ingot"].icon_size,
-            scale = .5,
-            shift = {48,16},
-        },
-        {
-            icon = data.raw["item"]["se-beryllium-ingot"].icon,
-            icon_size = data.raw["item"]["se-beryllium-ingot"].icon_size,
-            scale = .5,
-            shift = {16,16},
-        },
-        {
-            icon = data.raw["item"]["se-steel-ingot"].icon,
-            icon_size = data.raw["item"]["se-steel-ingot"].icon_size,
-            scale = .5,
-            shift = {-16,48},
-        },
+      icon = data.raw["technology"]["se-processing-cryonite"].icon,
+      icon_size = data.raw["technology"]["se-processing-cryonite"].icon_size
     },
-    unit = {
-        count = 200,
-        ingredients = {
-            {"automation-science-pack", 1},
-            {"logistic-science-pack", 1},
-            {"chemical-science-pack", 1},
-            {"se-rocket-science-pack", 1},
-            {"space-science-pack", 1},
-            {"production-science-pack", 1},
-            {"se-energy-science-pack-1", 1},
-			{"se-material-science-pack-1", 1},
-        },
-        time = 60,
+    {
+      icon = data.raw["item"]["se-iron-ingot"].icon,
+      icon_size = data.raw["item"]["se-iron-ingot"].icon_size,
+      scale = .5,
+      shift = {48,48}
     },
-    prerequisites = {
-		"se-processing-cryonite",
-		"se-space-hypercooling-2",
-		"se-pyroflux-smelting",
+    {
+      icon = data.raw["item"]["se-copper-ingot"].icon,
+      icon_size = data.raw["item"]["se-copper-ingot"].icon_size,
+      scale = .5,
+      shift = {16,48}
     },
-    effects = {},
+    {
+      icon = data.raw["item"]["se-holmium-ingot"].icon,
+      icon_size = data.raw["item"]["se-holmium-ingot"].icon_size,
+      scale = .5,
+      shift = {48,16}
     },
-}
+    {
+      icon = data.raw["item"]["se-beryllium-ingot"].icon,
+      icon_size = data.raw["item"]["se-beryllium-ingot"].icon_size,
+      scale = .5,
+      shift = {16,16}
+    },
+    {
+      icon = data.raw["item"]["se-steel-ingot"].icon,
+      icon_size = data.raw["item"]["se-steel-ingot"].icon_size,
+      scale = .5,
+      shift = {-16,48}
+    }
+  },
+  unit = {
+    count = 200,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+      {"chemical-science-pack", 1},
+      {"se-rocket-science-pack", 1},
+      {"space-science-pack", 1},
+      {"production-science-pack", 1},
+      {"se-energy-science-pack-1", 1},
+      {"se-material-science-pack-1", 1}
+    },
+    time = 60,
+  },
+  prerequisites = {
+    "se-processing-cryonite",
+    "se-space-hypercooling-2",
+    "se-pyroflux-smelting"
+  },
+  effects = {},
+}}
 
 local cryo_tech = data.raw["technology"][mod_prefix .. "cryo-cooling-ingots"]
 
 -- add water cooling tech
-data:extend{
+data:extend{{
+  name = mod_prefix .. "water-cooling-ingots",
+  type = "technology",
+  icons = {
     {
-    name = mod_prefix .. "water-cooling-ingots",
-    type = "technology",
-    icons = {
-        {
-            --icon = data.raw["fluid"]["water"].icon,
-            --icon_size = data.raw["fluid"]["water"].icon_size,
-			icon = data.raw["technology"]["se-pyroflux-smelting"].icon,
-            icon_size = data.raw["technology"]["se-pyroflux-smelting"].icon_size,
-        },
-        {
-            icon = data.raw["fluid"]["water"].icon,
-            icon_size = data.raw["fluid"]["water"].icon_size,
-            scale = 3.0,
-            shift = {50,50},
-        },
+      icon = data.raw["technology"]["se-pyroflux-smelting"].icon,
+      icon_size = data.raw["technology"]["se-pyroflux-smelting"].icon_size
     },
-    unit = {
-        count = 100,
-        ingredients = {
-            {"automation-science-pack", 1},
-            {"logistic-science-pack", 1},
-            {"chemical-science-pack", 1},
-            {"se-rocket-science-pack", 1},
-            {"space-science-pack", 1},
-            {"production-science-pack", 1},
-        },
-        time = 60,
+    {
+      icon = data.raw["fluid"]["water"].icon,
+      icon_size = data.raw["fluid"]["water"].icon_size,
+      scale = 3.0,
+      shift = {50,50}
+    }
+  },
+  unit = {
+    count = 100,
+    ingredients = {
+      {"automation-science-pack", 1},
+      {"logistic-science-pack", 1},
+      {"chemical-science-pack", 1},
+      {"se-rocket-science-pack", 1},
+      {"space-science-pack", 1},
+      {"production-science-pack", 1}
     },
-    prerequisites = {
-		"se-space-hypercooling-1",
-		"se-pyroflux-smelting",
-    },
-    effects = {},
-    },
-}
+    time = 60,
+  },
+  prerequisites = {
+    "se-space-hypercooling-1",
+    "se-pyroflux-smelting"
+  },
+  effects = {},
+}}
 
 local water_tech = data.raw["technology"][mod_prefix .. "water-cooling-ingots"]
 
@@ -179,7 +173,7 @@ data.raw["assembling-machine"]["se-casting-machine"].fluid_boxes =
     base_level = -1,
     height = 2,
     pipe_connections = {{ type="input-output", position = {-2, .5} }},
-    secondary_draw_orders = { north = -1, east = -1, west = -1 },
+    secondary_draw_orders = { north = -1, east = -1, west = -1 }
   },
   {
     production_type = "output",
@@ -189,7 +183,7 @@ data.raw["assembling-machine"]["se-casting-machine"].fluid_boxes =
     base_level = -1,
     height = 2,
     pipe_connections = {{ type="input-output", position = {0, -1.5} }},
-    secondary_draw_orders = { north = -1, east = -1, west = -1 },
+    secondary_draw_orders = { north = -1, east = -1, west = -1 }
   },
   {
     production_type = "input",
@@ -199,7 +193,7 @@ data.raw["assembling-machine"]["se-casting-machine"].fluid_boxes =
     base_level = -1,
     height = 2,
     pipe_connections = {{ type="input-output", position = {2, .5} }},
-    secondary_draw_orders = { north = -1, east = -1, west = -1 },
+    secondary_draw_orders = { north = -1, east = -1, west = -1 }
   },
   {
     production_type = "input",
@@ -209,94 +203,90 @@ data.raw["assembling-machine"]["se-casting-machine"].fluid_boxes =
     base_level = -1,
     height = 2,
     pipe_connections = {{ type="input-output", position = {0, 1.5} }},
-    secondary_draw_orders = { north = -1, east = -1, west = -1 },
-  },
+    secondary_draw_orders = { north = -1, east = -1, west = -1 }
+  }
 }
 
 -- add new cryo recipes
 local function add_cryoslush_cooled_ingot(recipe_name)
-    local recipe = data.raw["recipe"][recipe_name]
-    local is_ingot = false
-    if recipe.category ~= "casting" then return end
-    if recipe.result then
-        if string.find(recipe.result, ingot) then
-            is_ingot = true
-        end
-    elseif recipe.results then
-        for key, result in pairs(recipe.results) do
-            if result.name ~= nil then
-                if string.find(result.name, ingot) then
-                    is_ingot = true
-                end
-            end
-            if result[1] ~= nil then
-                if string.find(result[1], ingot) then
-                    is_ingot = true
-                end
-            end
-        end
+  local recipe = data.raw["recipe"][recipe_name]
+  local is_ingot = false
+  if recipe.category ~= "casting" then return end
+  if recipe.result then
+    if string.find(recipe.result, ingot) then
+      is_ingot = true
     end
-    if is_ingot then
-        local new_recipe = table.deepcopy(recipe)
-        new_recipe.name = mod_prefix .. "z-cryoslush-cooled-" .. recipe_name
-        table.insert(new_recipe.ingredients, {type="fluid", name="se-cryonite-slush", amount = 4})
-        new_recipe.energy_required = new_recipe.energy_required / 2.5
-        --[[for key, ingredient in pairs(new_recipe.ingredients) do
-            if ingredient.name ~= nil then
-                if string.find(ingredient.name, molten) then
-                    ingredient.amount = ingredient.amount * boost
-                end
-            end
-        end]]
-        data:extend({new_recipe})
-        table.insert(cryo_tech.effects, {type = "unlock-recipe", recipe = new_recipe.name})
-        if new_recipe.icons then
-            table.insert(new_recipe.icons,
-            {
-                icon = data.raw["fluid"]["se-cryonite-slush"].icon,
-                icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
-                scale = 0.25,
-                shift = {7,7}
-            })
-        elseif data.raw["item"][recipe.name].icons then
-            new_recipe.icons = table.deepcopy(data.raw["item"][recipe.name].icons)
-            table.insert(new_recipe.icons,
-            {
-                icon = data.raw["fluid"]["se-cryonite-slush"].icon,
-                icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
-                scale = 0.25,
-                shift = {7,7}
-            })
-        elseif data.raw["item"][recipe.name].icon then
-            new_recipe.icons =
-            {
-                {
-                    icon = data.raw["item"][recipe.name].icon,
-                    icon_size = data.raw["item"][recipe.name].icon_size,
-                },
-                {
-                    icon = data.raw["fluid"]["se-cryonite-slush"].icon,
-                    icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
-                    scale = 0.25,
-                    shift = {7,7}
-                }
-            }
-        elseif data.raw["recipe"][recipe.name].icon then
-            new_recipe.icons =
-            {
-                {
-                    icon = data.raw["recipe"][recipe.name].icon,
-                    icon_size = data.raw["recipe"][recipe.name].icon_size,
-                },
-                {
-                    icon = data.raw["fluid"]["se-cryonite-slush"].icon,
-                    icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
-                    scale = 0.25,
-                    shift = {7,7}
-                }
-            }
+  elseif recipe.results then
+    for key, result in pairs(recipe.results) do
+      if result.name ~= nil then
+        if string.find(result.name, ingot) then
+          is_ingot = true
         end
+      end
+      if result[1] ~= nil then
+        if string.find(result[1], ingot) then
+          is_ingot = true
+        end
+      end
     end
+  end
+  if is_ingot then
+    local new_recipe = table.deepcopy(recipe)
+    new_recipe.name = mod_prefix .. "z-cryoslush-cooled-" .. recipe_name
+    table.insert(new_recipe.ingredients, {type="fluid", name="se-cryonite-slush", amount = 4})
+    new_recipe.energy_required = new_recipe.energy_required / 2.5
+    --[[for key, ingredient in pairs(new_recipe.ingredients) do
+        if ingredient.name ~= nil then
+            if string.find(ingredient.name, molten) then
+                ingredient.amount = ingredient.amount * boost
+            end
+        end
+    end]]
+    data:extend({new_recipe})
+    table.insert(cryo_tech.effects, {type = "unlock-recipe", recipe = new_recipe.name})
+    if new_recipe.icons then
+      table.insert(new_recipe.icons,
+      {
+        icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+        icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+        scale = 0.25,
+        shift = {7,7}
+      })
+    elseif data.raw["item"][recipe.name].icons then
+      new_recipe.icons = table.deepcopy(data.raw["item"][recipe.name].icons)
+      table.insert(new_recipe.icons,
+      {
+        icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+        icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+        scale = 0.25,
+        shift = {7,7}
+      })
+    elseif data.raw["item"][recipe.name].icon then
+      new_recipe.icons =
+      {{
+          icon = data.raw["item"][recipe.name].icon,
+          icon_size = data.raw["item"][recipe.name].icon_size,
+        },
+        {
+          icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+          icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+          scale = 0.25,
+          shift = {7,7}
+      }}
+    elseif data.raw["recipe"][recipe.name].icon then
+      new_recipe.icons =
+      {{
+          icon = data.raw["recipe"][recipe.name].icon,
+          icon_size = data.raw["recipe"][recipe.name].icon_size,
+        },
+        {
+          icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+          icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+          scale = 0.25,
+          shift = {7,7}
+      }}
+    end
+  end
 end
 
 for key, value in pairs(add_cryo) do
@@ -305,132 +295,132 @@ end
 
 -- add new water recipes
 local function add_water_cooled_ingot(recipe_name)
-    local recipe = data.raw["recipe"][recipe_name]
-    local is_ingot = false
-    if recipe.category ~= "casting" then return end
-    if recipe.result then
-        if string.find(recipe.result, ingot) then
-            is_ingot = true
-        end
-    elseif recipe.results then
-        for key, result in pairs(recipe.results) do
-            if result.name ~= nil then
-                if string.find(result.name, ingot) then
-                    is_ingot = true
-                end
-            end
-            if result[1] ~= nil then
-                if string.find(result[1], ingot) then
-                    is_ingot = true
-                end
-            end
-        end
+  local recipe = data.raw["recipe"][recipe_name]
+  local is_ingot = false
+  if recipe.category ~= "casting" then return end
+  if recipe.result then
+    if string.find(recipe.result, ingot) then
+      is_ingot = true
     end
-    if is_ingot then
-        local new_recipe = table.deepcopy(recipe)
-        new_recipe.name = mod_prefix .. "a-water-cooled-" .. recipe_name
-        table.insert(new_recipe.ingredients, {type="fluid", name="water", amount = 50})
-		table.insert(new_recipe.results, {type = "fluid", name="steam", amount = 25, temperature = 165})
-		new_recipe.main_product = recipe.results[1].name
-		--log (serpent.block (new_recipe))
-        new_recipe.energy_required = new_recipe.energy_required / 1.5625
-        data:extend({new_recipe})
-        table.insert(water_tech.effects, {type = "unlock-recipe", recipe = new_recipe.name})
-        if new_recipe.icons then
-            table.insert(new_recipe.icons,
-            {
-                icon = data.raw["fluid"]["water"].icon,
-                icon_size = data.raw["fluid"]["water"].icon_size,
-                scale = 0.25,
-                shift = {7,7}
-            })
-        elseif data.raw["item"][recipe.name].icons then
-            new_recipe.icons = table.deepcopy(data.raw["item"][recipe.name].icons)
-            table.insert(new_recipe.icons,
-            {
-                icon = data.raw["fluid"]["water"].icon,
-                icon_size = data.raw["fluid"]["water"].icon_size,
-                scale = 0.25,
-                shift = {7,7}
-            })
-        elseif data.raw["item"][recipe.name].icon then
-            new_recipe.icons =
-            {
-                {
-                    icon = data.raw["item"][recipe.name].icon,
-                    icon_size = data.raw["item"][recipe.name].icon_size,
-                },
-                {
-                    icon = data.raw["fluid"]["water"].icon,
-                    icon_size = data.raw["fluid"]["water"].icon_size,
-                    scale = 0.25,
-                    shift = {7,7}
-                }
-            }
-        elseif data.raw["recipe"][recipe.name].icon then
-            new_recipe.icons =
-            {
-                {
-                    icon = data.raw["recipe"][recipe.name].icon,
-                    icon_size = data.raw["recipe"][recipe.name].icon_size,
-                },
-                {
-                    icon = data.raw["fluid"]["water"].icon,
-                    icon_size = data.raw["fluid"]["water"].icon_size,
-                    scale = 0.25,
-                    shift = {7,7}
-                }
-            }
+  elseif recipe.results then
+    for key, result in pairs(recipe.results) do
+      if result.name ~= nil then
+        if string.find(result.name, ingot) then
+          is_ingot = true
         end
+      end
+      if result[1] ~= nil then
+        if string.find(result[1], ingot) then
+          is_ingot = true
+        end
+      end
     end
+  end
+  if is_ingot then
+    local new_recipe = table.deepcopy(recipe)
+    new_recipe.name = mod_prefix .. "a-water-cooled-" .. recipe_name
+    table.insert(new_recipe.ingredients, {type="fluid", name="water", amount = 50})
+    table.insert(new_recipe.results, {type = "fluid", name="steam", amount = 25, temperature = 165})
+    new_recipe.main_product = recipe.results[1].name
+    --log (serpent.block (new_recipe))
+    new_recipe.energy_required = new_recipe.energy_required / 1.5625
+    data:extend({new_recipe})
+    table.insert(water_tech.effects, {type = "unlock-recipe", recipe = new_recipe.name})
+    if new_recipe.icons then
+      table.insert(new_recipe.icons,
+      {
+        icon = data.raw["fluid"]["water"].icon,
+        icon_size = data.raw["fluid"]["water"].icon_size,
+        scale = 0.25,
+        shift = {7,7}
+      })
+    elseif data.raw["item"][recipe.name].icons then
+      new_recipe.icons = table.deepcopy(data.raw["item"][recipe.name].icons)
+      table.insert(new_recipe.icons,
+      {
+        icon = data.raw["fluid"]["water"].icon,
+        icon_size = data.raw["fluid"]["water"].icon_size,
+        scale = 0.25,
+        shift = {7,7}
+      })
+    elseif data.raw["item"][recipe.name].icon then
+      new_recipe.icons =
+      {{
+          icon = data.raw["item"][recipe.name].icon,
+          icon_size = data.raw["item"][recipe.name].icon_size,
+        },
+        {
+          icon = data.raw["fluid"]["water"].icon,
+          icon_size = data.raw["fluid"]["water"].icon_size,
+          scale = 0.25,
+          shift = {7,7}
+      }}
+    elseif data.raw["recipe"][recipe.name].icon then
+      new_recipe.icons =
+      {{
+          icon = data.raw["recipe"][recipe.name].icon,
+          icon_size = data.raw["recipe"][recipe.name].icon_size,
+        },
+        {
+          icon = data.raw["fluid"]["water"].icon,
+          icon_size = data.raw["fluid"]["water"].icon_size,
+          scale = 0.25,
+          shift = {7,7}
+      }}
+    end
+  end
 end
 
 for key, value in pairs(add_water) do
   add_water_cooled_ingot(value)
 end
 
--- add landfill from coal
-local function landfil_recipe(item_name, count)
-  data:extend({
-    {
-      type = "recipe",
-      name = "landfill-"..item_name,
-      energy_required = 1,
-      enabled = false,
-      category = "hard-recycling",
-      icons = {
-        {icon = data.raw.item.landfill.icon, icon_size = data.raw.item.landfill.icon_size},
-        {icon = data.raw.item[item_name].icon, icon_size = data.raw.item[item_name].icon_size, scale = 0.33*64/data.raw.item[item_name].icon_size},
-      },
-      ingredients =
+if (settings.startup["xor-enable-coal-landfill"].value == true) then
+  -- add landfill from coal
+  local function landfil_recipe(item_name, count)
+    data:extend({
       {
-        {item_name, count}
-      },
-      result= "landfill",
-      result_count = 1,
-      order = "z-b-"..item_name,
-      allow_decomposition = false,
-    }
-  })
-  table.insert(data.raw["technology"]["se-recycling-facility"].effects, {type = "unlock-recipe",recipe = "landfill-"..item_name})
+        type = "recipe",
+        name = "landfill-"..item_name,
+        energy_required = 1,
+        enabled = false,
+        category = "hard-recycling",
+        icons = {
+          {icon = data.raw.item.landfill.icon, icon_size = data.raw.item.landfill.icon_size},
+          {icon = data.raw.item[item_name].icon, icon_size = data.raw.item[item_name].icon_size, scale = 0.33*64/data.raw.item[item_name].icon_size},
+        },
+        ingredients =
+        {
+          {item_name, count}
+        },
+        result= "landfill",
+        result_count = 1,
+        order = "z-b-"..item_name,
+        allow_decomposition = false,
+      }
+    })
+    table.insert(data.raw["technology"]["se-recycling-facility"].effects, {type = "unlock-recipe",recipe = "landfill-"..item_name})
+  end
+
+  landfil_recipe("coal", 50)
 end
 
-landfil_recipe("coal", 50)
-
 if mods["Krastorio2"] then
-  -- K2: fuel value for hydrogen
-  data.raw["fluid"]["hydrogen"].fuel_value = "450kJ"
-  data.raw["fluid"]["hydrogen"].emissions_multiplier = 0.5
 
-  -- K2: fuel value for light oil
-  data.raw["fluid"]["light-oil"].fuel_value = "600kJ"
-  data.raw["fluid"]["light-oil"].emissions_multiplier = 1.5
+  if (settings.startup["xor-enable-chemicals-fuel-value"].value == true) then
+    -- fuel value for hydrogen
+    data.raw["fluid"]["hydrogen"].fuel_value = "450kJ"
+    data.raw["fluid"]["hydrogen"].emissions_multiplier = 0.5
 
-  -- K2:
-  -- QoL: swap fluid outputs to match inputs of another recipe
-  -- just copied from original and swapped outputs
-  data.raw["assembling-machine"]["kr-electrolysis-plant"].fluid_boxes =
-    {
+    -- fuel value for light oil
+    data.raw["fluid"]["light-oil"].fuel_value = "600kJ"
+    data.raw["fluid"]["light-oil"].emissions_multiplier = 1.5
+  end
+
+  if (settings.startup["xor-swap-electrolysis-outputs"].value == true) then
+    -- QoL: swap fluid outputs to match inputs of another recipe
+    -- just copied from original and swapped outputs
+    data.raw["assembling-machine"]["kr-electrolysis-plant"].fluid_boxes = {
       -- Input
       {
         production_type = "input",
@@ -467,4 +457,5 @@ if mods["Krastorio2"] then
       },
       off_when_no_fluid_recipe = false,
     }
+  end
 end
