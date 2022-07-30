@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.2
-Date: 29. 07. 2022
+Date: 2022-07-29
   Features:
     - Made the rest of the mod's features toggleable via settings. That are all now!
     - The mod's settings are now colored.
@@ -11,7 +11,7 @@ Date: 29. 07. 2022
     - Public release!
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.1
-Date: 29. 07. 2022
+Date: 2022-07-29
   Features:
     - Made some of the mod's features toggleable via settings. (WIP)
   Changes:
@@ -22,7 +22,7 @@ Date: 29. 07. 2022
     - Some internal code changes.
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.0
-Date: 28. 07. 2022
+Date: 2022-07-28
   Features:
     - K2 Hydrogen has now a fuel value and thus can be burned for power.
     - Vanilla Light Oil now has a fuel value and thus can be burned for power.
@@ -33,12 +33,12 @@ Date: 28. 07. 2022
     - Swapped outputs of K2 Electrolysis Plant to match inputs of Chemical Plant for certain recipes.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.5
-Date: 18. 07. 2022
+Date: 2022-07-18
   Features:
     - New recipe: Landfill from coal, similar to existing ones.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.4
-Date: 15. 07. 2022
+Date: 2022-07-15
   Changes:
     - Mod name change.
     - Improved names of new techs.
@@ -46,21 +46,21 @@ Date: 15. 07. 2022
     - Minor behind the scenes code changes.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.3
-Date: 13. 07. 2022
+Date: 2022-07-13
   Bugfixes:
     - Fixed current error in K2+SE which made Logistics Bots have too much cargo capacity. (will probably get removed if fixed officially)
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.2
-Date: 12. 07. 2022
+Date: 2022-07-12
   Changes:
     - AAI Industrial Furnace module reduction should now only apply if K2 is installed.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1
-Date: 12. 07. 2022
+Date: 2022-07-12
   Bugfixes:
     - Fixed mod not working because I forgot to test a change.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.0
-Date: 12. 07. 2022
+Date: 2022-07-12
   Info:
-    - Initial release.
+    - Initial version.
