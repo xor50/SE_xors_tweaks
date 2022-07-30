@@ -136,7 +136,7 @@ if (settings.startup["xor-enable-cryo-cooled-casting-recipes"].value == true) th
       "se-space-hypercooling-2",
       "se-pyroflux-smelting"
     },
-    effects = {},
+    effects = {}
   }}
 end
 
@@ -175,7 +175,7 @@ if (settings.startup["xor-enable-water-cooled-casting-recipes"].value == true) t
       "se-space-hypercooling-1",
       "se-pyroflux-smelting"
     },
-    effects = {},
+    effects = {}
   }}
 end
 

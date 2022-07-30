@@ -44,8 +44,7 @@ if (settings.startup["xor-enable-advanced-explosives"].value == true) then
   })
 
   -- advanced explosives tech
-  data:extend{
-    {
+  data:extend{{
     name = mod_prefix .. "advanced-explosives",
     type = "technology",
     icons = {
@@ -82,9 +81,8 @@ if (settings.startup["xor-enable-advanced-explosives"].value == true) then
     },
     effects = {
       {type = "unlock-recipe", recipe = mod_prefix .. "advanced-explosives"}
-    },
-    },
-  }
+    }
+  }}
 end
 
 
@@ -130,8 +128,7 @@ if (settings.startup["xor-enable-mineral-water-filtering"].value == true) then
   })
 
   -- mineral water filtering tech
-  data:extend{
-  {
+  data:extend{{
     name = mod_prefix .. "mineral-water-filtering",
     type = "technology",
     icons = {
@@ -167,7 +164,6 @@ if (settings.startup["xor-enable-mineral-water-filtering"].value == true) then
     },
     effects = {
       {type = "unlock-recipe", recipe = mod_prefix .. "mineral-water-filtering"}
-    },
-    },
-  }
+    }
+  }}
 end
