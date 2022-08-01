@@ -487,3 +487,36 @@ if mods["Krastorio2"] then
     }
   end
 end
+
+if (settings.startup["xor-enable-900-steam"].value == true) then
+  --local electric_boiling = require("__space-exploration__/prototypes/phase-3/electric-boiling.lua")
+  local data_util = require("__space-exploration__/data_util")
+
+  local heat_capacity = data_util.string_to_number(data.raw.fluid.steam.heat_capacity)
+  local boiler_power = 5000000
+  local efficiency = 0.9
+
+  data:extend({
+    {
+      type = "recipe",
+      name = data_util.mod_prefix .. "electric-boiling-steam-900",
+      results = {
+        { type = "fluid", name = "steam", amount = 100, temperature = 900 },
+      },
+      enabled = false,
+      energy_required = (900-15) * 100 * heat_capacity / boiler_power / efficiency,
+      ingredients = {
+        { type = "fluid", name = "water", amount = 100 },
+      },
+      subgroup = "water",
+      requester_paste_multiplier = 1,
+      always_show_made_in = false,
+      category = data_util.mod_prefix .. "electric-boiling",
+      order = "b-a-b-d"
+    }
+  })
+
+  data.raw["recipe"]["se-electric-boiling-steam-5000"].order = "b-a-b-e"
+
+  table.insert(data.raw["technology"]["se-electric-boiler"].effects, {type = "unlock-recipe",recipe = data_util.mod_prefix .. "electric-boiling-steam-900"})
+end

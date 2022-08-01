@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.5
+Date: 2022-08-01
+  Features:
+    - Enable 900°C Steam recipe in Electric Boiler if you find that useful for whatever reason. (default: off)
+---------------------------------------------------------------------------------------------------
 Version: 1.1.4
 Date: 2022-08-01
   Features:

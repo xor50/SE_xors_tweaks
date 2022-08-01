@@ -92,4 +92,11 @@ data:extend({
     default_value = false,
     order = "13"
   },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-900-steam",
+    setting_type = "startup",
+    default_value = false,
+    order = "14"
+  },
 })
