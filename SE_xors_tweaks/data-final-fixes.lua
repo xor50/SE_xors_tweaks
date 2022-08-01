@@ -520,3 +520,26 @@ if (settings.startup["xor-enable-900-steam"].value == true) then
 
   table.insert(data.raw["technology"]["se-electric-boiler"].effects, {type = "unlock-recipe",recipe = data_util.mod_prefix .. "electric-boiling-steam-900"})
 end
+
+if mods["Krastorio2"] then
+  if (settings.startup["xor-enable-uranium-balance"].value == true) then
+
+    data.raw["recipe"]["uranium-fuel-cell"].ingredients = {
+      {"steel-plate", 1},
+      {"uranium-238", 8}, -- down from 10
+      {"uranium-235", 1} -- down from 2
+    }
+
+    -- SE post process overwrites those:
+    --krastorio.recipes.replaceProduct("nuclear-fuel-reprocessing", "uranium-238", {"uranium-238", 3})
+    --krastorio.recipes.replaceProduct("nuclear-fuel-reprocessing", "stone", {"stone", 2})
+
+    -- SE post process overwrites those:
+    --[[data.raw["recipe"]["nuclear-fuel-reprocessing"].results = {
+      {type="item", name="uranium-238", amount = 4}, -- down from 5
+      {type="item", name="stone", amount = 2}, -- down from 3
+      {type="item", name="tritium", probability = 0.12, amount = 1} --  down from 15%
+    }]]
+
+  end
+end
