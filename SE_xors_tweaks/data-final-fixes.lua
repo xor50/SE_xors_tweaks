@@ -72,7 +72,10 @@ for name, recipe in pairs(data.raw["recipe"]) do
       end
     end
   end
-  --if recipe.category == "kiln" then recipe.category = "smelting" end
+  -- make kiln recipes available in higher tier furnaces
+  if (settings.startup["xor-enable-kiln-recipes-in-smelting-furnaces"].value == true) then
+    if recipe.category == "kiln" then recipe.category = "smelting" end
+  end
 end
 
 

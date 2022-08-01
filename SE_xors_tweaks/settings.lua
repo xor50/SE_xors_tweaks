@@ -85,4 +85,11 @@ data:extend({
     default_value = true,
     order = "12"
   },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-kiln-recipes-in-smelting-furnaces",
+    setting_type = "startup",
+    default_value = false,
+    order = "13"
+  },
 })

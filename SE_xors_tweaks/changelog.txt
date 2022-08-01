@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.4
+Date: 2022-08-01
+  Features:
+    - Make kiln recipes available in higher tier furnaces. (default: off)
+  Info:
+    - Marked the original mod this mod is roughly based on as incompatible because both do basically the same (but mine has more features and options).
+---------------------------------------------------------------------------------------------------
 Version: 1.1.3
 Date: 2022-07-30
   Bugfixes:
