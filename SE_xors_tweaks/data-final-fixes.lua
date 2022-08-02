@@ -557,5 +557,21 @@ if mods["Krastorio2"] then
       {type="item", name="tritium", probability = 0.12, amount = 1} --  down from 15%
     }]]
 
+    -- so solution is to make own copy of recipe and...
+    local copy_of_reprocessing_recipe = table.deepcopy(data.raw["recipe"]["nuclear-fuel-reprocessing"])
+    copy_of_reprocessing_recipe.name = mod_prefix .. copy_of_reprocessing_recipe.name
+    copy_of_reprocessing_recipe.results = {
+      {type="item", name="uranium-238", amount = 4}, -- down from 5
+      {type="item", name="stone", amount_min = 2, amount_max = 3}, -- down from 3
+      {type="item", name="tritium", probability = 0.12, amount = 1} --  down from 15%
+    }
+    data:extend({copy_of_reprocessing_recipe})
+    -- ...overwrite original in tech
+    data.raw["technology"]["nuclear-fuel-reprocessing"].effects = {
+      {type = "unlock-recipe", recipe = copy_of_reprocessing_recipe.name}
+    }
+    -- removing it breaks mods that modify this recipe after this mod
+    --data.raw["recipe"]["nuclear-fuel-reprocessing"] = nil
+
   end
 end

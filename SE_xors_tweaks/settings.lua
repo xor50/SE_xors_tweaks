@@ -103,7 +103,7 @@ data:extend({
     type = "bool-setting",
     name = mod_prefix .. "enable-uranium-balance",
     setting_type = "startup",
-    default_value = true,
+    default_value = false,
     order = "15"
   },
 })
