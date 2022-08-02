@@ -347,9 +347,25 @@ local function add_water_cooled_ingot(recipe_name)
     new_recipe.name = mod_prefix .. "a-water-cooled-" .. recipe_name
     table.insert(new_recipe.ingredients, {type="fluid", name="water", amount = 50})
     table.insert(new_recipe.results, {type = "fluid", name="steam", amount = 25, temperature = 165})
-    new_recipe.main_product = recipe.results[1].name
-    --log (serpent.block (new_recipe))
     new_recipe.energy_required = new_recipe.energy_required / 1.5625
+
+    if (mods["bztitanium"] or
+        mods["bzlead"] or
+        mods["bztungsten"] or
+        mods["bzzirconium"] or
+        mods["bzsilicon"] or
+        mods["bzcarbon"] or
+        mods["bzaluminum"] or
+        mods["bztin"]) then
+      -- warning: "else" is better because this breaks if recipe has different name than result (for example carbide in bztungsten)
+      new_recipe.main_product = recipe.name
+      --log (serpent.block ("bz detected -> if block"))
+    else
+      new_recipe.main_product = recipe.results[1].name
+      --log (serpent.block ("no bz detected -> else block"))
+    end
+
+    --log (serpent.block (new_recipe))
     data:extend({new_recipe})
     table.insert(water_tech.effects, {type = "unlock-recipe", recipe = new_recipe.name})
     if new_recipe.icons then
