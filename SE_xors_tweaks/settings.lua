@@ -106,4 +106,11 @@ data:extend({
     default_value = false,
     order = "15"
   },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-nicer-thermofluid-numbers",
+    setting_type = "startup",
+    default_value = false,
+    order = "16"
+  },
 })
