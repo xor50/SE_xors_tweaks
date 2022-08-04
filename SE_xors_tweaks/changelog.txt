@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.2
+Date: 2022-08-04
+  Bugfixes:
+    - Added an additional check to prevent the mod from not loading when players with BZ mods had also enabled the optional recipes in the BZ foundry mod. In those cases these special recipes will not get a water-cooled variant.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.1
 Date: 2022-08-02
   Features:

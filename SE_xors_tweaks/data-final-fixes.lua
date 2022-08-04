@@ -349,6 +349,7 @@ local function add_water_cooled_ingot(recipe_name)
     table.insert(new_recipe.results, {type = "fluid", name="steam", amount = 25, temperature = 165})
     new_recipe.energy_required = new_recipe.energy_required / 1.5625
 
+    -- list all bz mods here (and possibly other mods as well), needs updating for new releases
     if (mods["bztitanium"] or
         mods["bzlead"] or
         mods["bztungsten"] or
@@ -357,10 +358,16 @@ local function add_water_cooled_ingot(recipe_name)
         mods["bzcarbon"] or
         mods["bzaluminum"] or
         mods["bztin"]) then
-      -- warning: "else" is better because this breaks if recipe has different name than result (for example carbide in bztungsten)
-      new_recipe.main_product = recipe.name
+      -- "else" is the correct way to do it
+      -- "if" breaks if recipe has different name than an item name; "break" might mean mod doesn't even load and gives error
+      -- so we need to check if recipe name is an item name:
+        if data.raw.item[recipe.name] then
+          new_recipe.main_product = recipe.name
+        end
+      -- of course that means if recipe has illegal name no new water-cooled recipe will be created, too bad
       --log (serpent.block ("bz detected -> if block"))
     else
+      -- the reason for this if/else chaos is that the result short form can't be accessed like this:
       new_recipe.main_product = recipe.results[1].name
       --log (serpent.block ("no bz detected -> else block"))
     end
