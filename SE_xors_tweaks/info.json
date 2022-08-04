@@ -18,6 +18,7 @@
 	"? bzsilicon",
     "? bzcarbon",
 	"? bzaluminum",
-	"? bztin"
+	"? bztin",
+	"! SE_smaller_rad_buffers"
 	]
 }
