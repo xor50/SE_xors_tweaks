@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.3
+Date: 2022-08-05
+  Bugfixes:
+    - Added missing check for Krastorio 2 that resulted in the mod not loading when K2 was not installed. Sorry about that.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.2
 Date: 2022-08-04
   Features:
