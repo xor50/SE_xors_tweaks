@@ -3,114 +3,121 @@ local mod_prefix = "xor-"
 data:extend({
   {
     type = "bool-setting",
-    name = mod_prefix .. "enable-advanced-explosives",
-    setting_type = "startup",
-    default_value = true,
-    order = "01"
-  },
-  {
-    type = "bool-setting",
-    name = mod_prefix .. "enable-mineral-water-filtering",
-    setting_type = "startup",
-    default_value = true,
-    order = "02"
-  },
-  {
-    type = "bool-setting",
-    name = mod_prefix .. "enable-chemicals-fuel-value",
-    setting_type = "startup",
-    default_value = true,
-    order = "03"
-  },
-  {
-    type = "bool-setting",
-    name = mod_prefix .. "swap-electrolysis-outputs",
-    setting_type = "startup",
-    default_value = true,
-    order = "04"
-  },
-  {
-    type = "bool-setting",
     name = mod_prefix .. "enable-coal-landfill",
     setting_type = "startup",
     default_value = true,
-    order = "05"
-  },
-  {
-    type = "bool-setting",
-    name = mod_prefix .. "enable-increased-molten-density",
-    setting_type = "startup",
-    default_value = true,
-    order = "06"
+    order = "011"
   },
   {
     type = "bool-setting",
     name = mod_prefix .. "enable-cryo-cooled-casting-recipes",
     setting_type = "startup",
     default_value = true,
-    order = "07"
+    order = "012"
   },
   {
     type = "bool-setting",
     name = mod_prefix .. "enable-water-cooled-casting-recipes",
     setting_type = "startup",
     default_value = true,
-    order = "08"
+    order = "013"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-increased-molten-density",
+    setting_type = "startup",
+    default_value = true,
+    order = "021"
   },
   {
     type = "bool-setting",
     name = mod_prefix .. "enable-increased-caster-speed",
     setting_type = "startup",
     default_value = true,
-    order = "09"
-  },
-  {
-    type = "bool-setting",
-    name = mod_prefix .. "enable-robot-cargo-fix",
-    setting_type = "startup",
-    default_value = true,
-    order = "10"
-  },
-  {
-    type = "bool-setting",
-    name = mod_prefix .. "enable-aai-furnace-module-balancing",
-    setting_type = "startup",
-    default_value = true,
-    order = "11"
-  },
-  {
-    type = "bool-setting",
-    name = mod_prefix .. "enable-k2-advanced-chem-plant-balancing",
-    setting_type = "startup",
-    default_value = true,
-    order = "12"
+    order = "022"
   },
   {
     type = "bool-setting",
     name = mod_prefix .. "enable-kiln-recipes-in-smelting-furnaces",
     setting_type = "startup",
     default_value = false,
-    order = "13"
-  },
-  {
-    type = "bool-setting",
-    name = mod_prefix .. "enable-900-steam",
-    setting_type = "startup",
-    default_value = false,
-    order = "14"
-  },
-  {
-    type = "bool-setting",
-    name = mod_prefix .. "enable-uranium-balance",
-    setting_type = "startup",
-    default_value = false,
-    order = "15"
+    order = "023"
   },
   {
     type = "bool-setting",
     name = mod_prefix .. "enable-nicer-thermofluid-numbers",
     setting_type = "startup",
     default_value = false,
-    order = "16"
+    order = "024"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "swap-electrolysis-outputs",
+    setting_type = "startup",
+    default_value = true,
+    order = "101"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-robot-cargo-fix",
+    setting_type = "startup",
+    default_value = true,
+    order = "102"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-advanced-explosives",
+    setting_type = "startup",
+    default_value = true,
+    order = "111"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-mineral-water-filtering",
+    setting_type = "startup",
+    default_value = true,
+    order = "112"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-chemicals-fuel-value",
+    setting_type = "startup",
+    default_value = true,
+    order = "113"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-415-steam",
+    setting_type = "startup",
+    default_value = false,
+    order = "114"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-900-steam",
+    setting_type = "startup",
+    default_value = false,
+    order = "115"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-aai-furnace-module-balancing",
+    setting_type = "startup",
+    default_value = true,
+    order = "121"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-k2-advanced-chem-plant-balancing",
+    setting_type = "startup",
+    default_value = true,
+    order = "122"
+  },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-uranium-balance",
+    setting_type = "startup",
+    default_value = false,
+    order = "123"
   },
 })

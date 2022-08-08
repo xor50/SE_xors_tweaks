@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.4
+Date: 2022-08-08
+  Features:
+    - Enable 415°C Steam recipe in Electric Boiler. (default: off)
+  Changes:
+    - Re-ordered the mod's options in the mod settings to make more sense.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.3
 Date: 2022-08-05
   Bugfixes:
