@@ -49,7 +49,7 @@ for name, recipe in pairs(data.raw["recipe"]) do
   if recipe.ingredients ~= nil then
     for key, ingredient in pairs(recipe.ingredients) do
       if ingredient.name ~= nil then
-        if string.find(ingredient.name, molten) and not string.find(ingredient.name, "water") and not string.find(ingredient.name, "cryo") then
+        if string.find(ingredient.name, molten) and not string.find(recipe.name, "cooled") then
           ingredient.amount = ingredient.amount/denseness_factor
           if (settings.startup["xor-enable-cryo-cooled-casting-recipes"].value == true) then
             if not mods["SE_faster_caster"] then
@@ -64,7 +64,7 @@ for name, recipe in pairs(data.raw["recipe"]) do
     end
   end
   if recipe.result then
-    if string.find(recipe.result, molten) and not string.find(recipe.result, "water") and not string.find(recipe.result, "cryo") then
+    if string.find(recipe.result, molten) and not string.find(recipe.name, "cooled") then
       if not mods["SE_faster_caster"] then
         recipe.result_count = recipe.result_count/denseness_factor
       end
@@ -72,7 +72,7 @@ for name, recipe in pairs(data.raw["recipe"]) do
   elseif recipe.results then
     for key, result in pairs(recipe.results) do
       if result.name ~= nil then
-        if string.find(result.name, molten) and not string.find(result.name, "water") and not string.find(result.name, "cryo") then
+        if string.find(result.name, molten) and not string.find(recipe.name, "cooled") then
           if not mods["SE_faster_caster"] then
             result.amount = result.amount/denseness_factor
           end

@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.8
+Date: 2022-08-20
+  Bugfixes:
+    - Fixed oversight in pseudo-compat with SE Smelting Tweaks. Reminder: It's probably NOT a good idea to use both at the same time!
+---------------------------------------------------------------------------------------------------
 Version: 1.2.7
 Date: 2022-08-20
   Features:
