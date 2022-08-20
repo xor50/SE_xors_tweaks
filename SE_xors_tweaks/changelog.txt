@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.7
+Date: 2022-08-20
+  Features:
+    - K2 fix: Set stack size of (Used Up) Uranium Fuel Cells to 10 as possibly intented by SE.
+  Changes:
+    - Removed hard incompatibility with SE Smelting Tweaks mod. That does NOT mean that they work well together! You should probably just use this one. Using both is at your own risk!
+---------------------------------------------------------------------------------------------------
 Version: 1.2.6
 Date: 2022-08-18
   Features:

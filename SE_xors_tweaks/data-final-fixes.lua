@@ -39,7 +39,9 @@ local ingot = "ingot"
 
 local denseness_factor = 1 -- default: make not denser
 if (settings.startup["xor-enable-increased-molten-density"].value == true) then
-  denseness_factor = 2 -- make denser by this factor
+  if not mods["SE_faster_caster"] then
+    denseness_factor = 2 -- make denser by this factor
+  end
 end
 
 -- make molten metal denser (as in: recipes put out less and recipes require less)
@@ -47,10 +49,12 @@ for name, recipe in pairs(data.raw["recipe"]) do
   if recipe.ingredients ~= nil then
     for key, ingredient in pairs(recipe.ingredients) do
       if ingredient.name ~= nil then
-        if string.find(ingredient.name, molten) then
+        if string.find(ingredient.name, molten) and not string.find(ingredient.name, "water") and not string.find(ingredient.name, "cryo") then
           ingredient.amount = ingredient.amount/denseness_factor
           if (settings.startup["xor-enable-cryo-cooled-casting-recipes"].value == true) then
-            table.insert(add_cryo, recipe.name) -- add new cryo cooling recipes
+            if not mods["SE_faster_caster"] then
+              table.insert(add_cryo, recipe.name) -- add new cryo cooling recipes
+            end
           end
           if (settings.startup["xor-enable-water-cooled-casting-recipes"].value == true) then
             table.insert(add_water, recipe.name) -- add new water cooling recipes
@@ -60,87 +64,95 @@ for name, recipe in pairs(data.raw["recipe"]) do
     end
   end
   if recipe.result then
-    if string.find(recipe.result, molten) then
+    if string.find(recipe.result, molten) and not string.find(recipe.result, "water") and not string.find(recipe.result, "cryo") then
+      if not mods["SE_faster_caster"] then
         recipe.result_count = recipe.result_count/denseness_factor
+      end
     end
   elseif recipe.results then
     for key, result in pairs(recipe.results) do
       if result.name ~= nil then
-        if string.find(result.name, molten) then
-          result.amount = result.amount/denseness_factor
+        if string.find(result.name, molten) and not string.find(result.name, "water") and not string.find(result.name, "cryo") then
+          if not mods["SE_faster_caster"] then
+            result.amount = result.amount/denseness_factor
+          end
         end
       end
     end
   end
   -- make kiln recipes available in higher tier furnaces
   if (settings.startup["xor-enable-kiln-recipes-in-smelting-furnaces"].value == true) then
-    if recipe.category == "kiln" then recipe.category = "smelting" end
+    if not mods["SE_faster_caster"] then
+      if recipe.category == "kiln" then recipe.category = "smelting" end
+    end
   end
 end
 
 
 if (settings.startup["xor-enable-cryo-cooled-casting-recipes"].value == true) then
-  -- add cryo cooling tech
-  data:extend{{
-    name = mod_prefix .. "cryo-cooling-ingots",
-    type = "technology",
-    icons = {
-      {
-        icon = data.raw["technology"]["se-processing-cryonite"].icon,
-        icon_size = data.raw["technology"]["se-processing-cryonite"].icon_size
+  if not mods["SE_faster_caster"] then
+    -- add cryo cooling tech
+    data:extend{{
+      name = mod_prefix .. "cryo-cooling-ingots",
+      type = "technology",
+      icons = {
+        {
+          icon = data.raw["technology"]["se-processing-cryonite"].icon,
+          icon_size = data.raw["technology"]["se-processing-cryonite"].icon_size
+        },
+        {
+          icon = data.raw["item"]["se-iron-ingot"].icon,
+          icon_size = data.raw["item"]["se-iron-ingot"].icon_size,
+          scale = .5,
+          shift = {48,48}
+        },
+        {
+          icon = data.raw["item"]["se-copper-ingot"].icon,
+          icon_size = data.raw["item"]["se-copper-ingot"].icon_size,
+          scale = .5,
+          shift = {16,48}
+        },
+        {
+          icon = data.raw["item"]["se-holmium-ingot"].icon,
+          icon_size = data.raw["item"]["se-holmium-ingot"].icon_size,
+          scale = .5,
+          shift = {48,16}
+        },
+        {
+          icon = data.raw["item"]["se-beryllium-ingot"].icon,
+          icon_size = data.raw["item"]["se-beryllium-ingot"].icon_size,
+          scale = .5,
+          shift = {16,16}
+        },
+        {
+          icon = data.raw["item"]["se-steel-ingot"].icon,
+          icon_size = data.raw["item"]["se-steel-ingot"].icon_size,
+          scale = .5,
+          shift = {-16,48}
+        }
       },
-      {
-        icon = data.raw["item"]["se-iron-ingot"].icon,
-        icon_size = data.raw["item"]["se-iron-ingot"].icon_size,
-        scale = .5,
-        shift = {48,48}
+      unit = {
+        count = 200,
+        ingredients = {
+          {"automation-science-pack", 1},
+          {"logistic-science-pack", 1},
+          {"chemical-science-pack", 1},
+          {"se-rocket-science-pack", 1},
+          {"space-science-pack", 1},
+          {"production-science-pack", 1},
+          {"se-energy-science-pack-1", 1},
+          {"se-material-science-pack-1", 1}
+        },
+        time = 60,
       },
-      {
-        icon = data.raw["item"]["se-copper-ingot"].icon,
-        icon_size = data.raw["item"]["se-copper-ingot"].icon_size,
-        scale = .5,
-        shift = {16,48}
+      prerequisites = {
+        "se-processing-cryonite",
+        "se-space-hypercooling-2",
+        "se-pyroflux-smelting"
       },
-      {
-        icon = data.raw["item"]["se-holmium-ingot"].icon,
-        icon_size = data.raw["item"]["se-holmium-ingot"].icon_size,
-        scale = .5,
-        shift = {48,16}
-      },
-      {
-        icon = data.raw["item"]["se-beryllium-ingot"].icon,
-        icon_size = data.raw["item"]["se-beryllium-ingot"].icon_size,
-        scale = .5,
-        shift = {16,16}
-      },
-      {
-        icon = data.raw["item"]["se-steel-ingot"].icon,
-        icon_size = data.raw["item"]["se-steel-ingot"].icon_size,
-        scale = .5,
-        shift = {-16,48}
-      }
-    },
-    unit = {
-      count = 200,
-      ingredients = {
-        {"automation-science-pack", 1},
-        {"logistic-science-pack", 1},
-        {"chemical-science-pack", 1},
-        {"se-rocket-science-pack", 1},
-        {"space-science-pack", 1},
-        {"production-science-pack", 1},
-        {"se-energy-science-pack-1", 1},
-        {"se-material-science-pack-1", 1}
-      },
-      time = 60,
-    },
-    prerequisites = {
-      "se-processing-cryonite",
-      "se-space-hypercooling-2",
-      "se-pyroflux-smelting"
-    },
-    effects = {}
-  }}
+      effects = {}
+    }}
+  end
 end
 
 local cryo_tech = data.raw["technology"][mod_prefix .. "cryo-cooling-ingots"]
@@ -314,8 +326,10 @@ local function add_cryoslush_cooled_ingot(recipe_name)
 end
 
 if (settings.startup["xor-enable-cryo-cooled-casting-recipes"].value == true) then
-  for key, value in pairs(add_cryo) do
-    add_cryoslush_cooled_ingot(value)
+  if not mods["SE_faster_caster"] then
+    for key, value in pairs(add_cryo) do
+      add_cryoslush_cooled_ingot(value)
+    end
   end
 end
 

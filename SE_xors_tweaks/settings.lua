@@ -66,6 +66,13 @@ data:extend({
   },
   {
     type = "bool-setting",
+    name = mod_prefix .. "fuel-cell-stack-size",
+    setting_type = "startup",
+    default_value = true,
+    order = "103"
+  },
+  {
+    type = "bool-setting",
     name = mod_prefix .. "enable-advanced-explosives",
     setting_type = "startup",
     default_value = true,
