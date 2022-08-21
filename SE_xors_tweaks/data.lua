@@ -96,9 +96,8 @@ if mods["Krastorio2"] then
         name = mod_prefix .. "mineral-water-filtering",
         energy_required = 4,
         enabled = false,
-        --enabled = true,
         category = "fluid-filtration",
-        --subgroup = "raw-material",
+        subgroup = "raw-material",
         icons = {
           {icon = data.raw["fluid"]["dirty-water"].icon, icon_size = data.raw["fluid"]["dirty-water"].icon_size},
           {
@@ -119,7 +118,7 @@ if mods["Krastorio2"] then
           {type="item", name="rare-metals", probability = 0.05, amount = 1},
           {type="item", name="lithium", probability = 0.05, amount = 1}
         },
-        main_product = "dirty-water",
+        --main_product = "dirty-water", -- overwrites manual naming in locale if set
         order = item_name,
         allow_decomposition = true,
         crafting_machine_tint = {

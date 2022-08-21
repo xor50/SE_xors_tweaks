@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.9
+Date: 2022-08-21
+  Bugfixes:
+    - Moved the Mineral Water filtration recipe from fluid category to raw resources. Should fix an issue with that recipe being the only one in fluids category and thus adding a new tab.
+    - Renamed that recipe to actually reflect what it does ("Mineral water filtration").
+---------------------------------------------------------------------------------------------------
 Version: 1.2.8
 Date: 2022-08-20
   Bugfixes:
