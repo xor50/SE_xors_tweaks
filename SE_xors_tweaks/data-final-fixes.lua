@@ -215,7 +215,7 @@ if (settings.startup["xor-enable-cryo-cooled-casting-recipes"].value == true
       pipe_picture = pipe_pics,
       pipe_covers = pipecoverspictures(),
       base_area = 1,
-      base_level = -1,
+      base_level = 1,
       height = 2,
       pipe_connections = {{ type="input-output", position = {0, -1.5} }},
       secondary_draw_orders = { north = -1, east = -1, west = -1 }
