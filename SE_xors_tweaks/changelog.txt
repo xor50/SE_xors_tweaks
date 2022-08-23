@@ -2,7 +2,7 @@
 Version: 1.2.10
 Date: 2022-08-23
   Bugfixes:
-    - Fixed Steam not leaving Casting Machine in some cases when using the Water-Cooled Ingot Casting recipe due to wrong height of output fluid box.
+    - Fixed Steam not leaving Casting Machine in some cases when using the Water-Cooled Ingot Casting recipe due to wrong level of output fluid box.
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.9
 Date: 2022-08-21
