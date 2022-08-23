@@ -630,3 +630,71 @@ if mods["Krastorio2"] then
 
   end
 end
+
+if mods["Krastorio2"] then
+  if (settings.startup["xor-enable-dirty-water-balance"].value == true) then
+
+    data.raw["recipe"]["se-dirty-water-filtration-iridium"].normal.results = {
+      {type = "fluid", name = "water", amount = 90},
+      {name = "stone", probability = 0.30, amount = 1},
+      --{name = "se-iridium-ore-crushed", probability = 0.10, amount = 1},
+      {name = "se-iridium-ore-crushed", probability = 0.50, amount = 1},
+      --{name = "se-vulcanite-ion-exchange-beads", probability = 0.6, amount =1}
+      {name = "se-vulcanite-ion-exchange-beads", probability = 0.7, amount =1}
+    }
+
+    data.raw["recipe"]["se-dirty-water-filtration-holmium"].normal.results = {
+      {type = "fluid", name = "water", amount = 90},
+      {name = "stone", probability = 0.30, amount = 1},
+      --{name = "se-holmium-ore-crushed", probability = 0.10, amount = 1},
+      {name = "se-holmium-ore-crushed", probability = 0.50, amount = 1},
+      --{name = "se-cryonite-ion-exchange-beads", probability = 0.6, amount =1}
+      {name = "se-cryonite-ion-exchange-beads", probability = 0.7, amount =1}
+    }
+
+  end
+end
+
+-- seems like this (annoying) workaround is actually not needed:
+--[[
+local copy_of_dirty_iridium_water_cleaning = table.deepcopy(data.raw["recipe"]["se-dirty-water-filtration-iridium"])
+local copy_of_dirty_holmium_water_cleaning = table.deepcopy(data.raw["recipe"]["se-dirty-water-filtration-holmium"])
+copy_of_dirty_iridium_water_cleaning.name = mod_prefix .. "iridium-water-cleaning"
+copy_of_dirty_holmium_water_cleaning.name = mod_prefix .. "holmium-water-cleaning"
+--log (serpent.block ("before:"))
+--log (serpent.block (copy_of_dirty_iridium_water_cleaning))
+copy_of_dirty_iridium_water_cleaning.normal.results = {
+  {type = "fluid", name = "water", amount = 90},
+  {name = "stone", probability = 0.30, amount = 1},
+  {name = "se-iridium-ore-crushed", probability = 0.50, amount = 1},
+  {name = "se-vulcanite-ion-exchange-beads", probability = 0.7, amount =1}
+}
+--log (serpent.block ("after:"))
+--log (serpent.block (copy_of_dirty_iridium_water_cleaning))
+copy_of_dirty_holmium_water_cleaning.normal.results = {
+  {type = "fluid", name = "water", amount = 90},
+  {name = "stone", probability = 0.30, amount = 1},
+  {name = "se-holmium-ore-crushed", probability = 0.50, amount = 1},
+  {name = "se-cryonite-ion-exchange-beads", probability = 0.7, amount =1}
+}
+data:extend({copy_of_dirty_iridium_water_cleaning})
+data:extend({copy_of_dirty_holmium_water_cleaning})
+data.raw["technology"]["se-processing-iridium"].effects = {
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "iridium-ore-crushed"},
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "iridium-powder"},
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "iridium-blastcake"},
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "iridium-ingot"},
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "iridium-ingot-to-plate"},
+  {type = "unlock-recipe", recipe = copy_of_dirty_iridium_water_cleaning.name}
+}
+data.raw["technology"]["se-processing-holmium"].effects = {
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "holmium-ore-crushed"},
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "holmium-powder"},
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "holmium-chloride"},
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "holmium-ingot-no-vulcanite"},
+  {type = "unlock-recipe", recipe = data_util.mod_prefix .. "holmium-ingot-to-plate"},
+  {type = "unlock-recipe", recipe = copy_of_dirty_holmium_water_cleaning.name}
+}
+data.raw["recipe"]["se-dirty-water-filtration-iridium"] = nil
+data.raw["recipe"]["se-dirty-water-filtration-holmium"] = nil
+]]
