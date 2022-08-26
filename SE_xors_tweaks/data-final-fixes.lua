@@ -73,8 +73,13 @@ for name, recipe in pairs(data.raw["recipe"]) do
     for key, result in pairs(recipe.results) do
       if result.name ~= nil then
         if string.find(result.name, molten) and not string.find(recipe.name, "cooled") then
-          if not mods["SE_faster_caster"] then
-            result.amount = result.amount/denseness_factor
+          if result.amount ~= nil then --amount will be nil when min and max is used
+            if not mods["SE_faster_caster"] then
+              result.amount = result.amount/denseness_factor
+            end
+          else
+            result.amount_min = result.amount_min/denseness_factor
+            result.amount_max = result.amount_max/denseness_factor
           end
         end
       end
