@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.13
+Date: 2022-08-27
+  Bugfixes:
+    - Fixed some weird ordering of SE/K2 ore and processing recipes (only affects inventory/crafting menu and machines). This is a UI/visual change only. WIP: Will fix more of those ordering issue if I come across them.
+  Info:
+    - WARNING: Updating to this (and later) version(s) means you need to re-set all the water- or cryo-cooling recipes, if you used them before in some machines. I'm sorry! (because those recipes are dynamically generated this is not solvable via migration)
+---------------------------------------------------------------------------------------------------
 Version: 1.2.12
 Date: 2022-08-26
   Info:

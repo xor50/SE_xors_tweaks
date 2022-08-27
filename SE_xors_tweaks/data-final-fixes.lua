@@ -31,6 +31,70 @@ if (settings.startup["xor-enable-increased-caster-speed"].value == true) then
   data.raw["assembling-machine"]["se-casting-machine"].energy_usage = casting_machine_energy_usage_old * casting_machine_speed_factor .. "kW"
 end
 
+-- BEGIN RECIPE ORDERING
+
+-- stone stuff
+data.raw["recipe"]["se-core-fragment-stone"].order = "01"
+data.raw["recipe"]["sand"].order = "02"
+data.raw["recipe"]["glass"].order = "03"
+data.raw["recipe"]["se-glass-vulcanite"].order = "04"
+if mods["Krastorio2"] then
+  data.raw["recipe"]["quartz"].order = "05"
+  data.raw["recipe"]["silicon"].order = "06"
+  data.raw["recipe"]["silicon-vulcanite"].order = "07"
+end
+
+-- iron stuff
+data.raw["recipe"]["se-core-fragment-iron-ore"].order = "01"
+if mods["Krastorio2"] then
+  data.raw["recipe"]["dirty-water-filtration-1"].order = "02"
+end
+data.raw["recipe"]["iron-plate"].order = "03"
+if mods["Krastorio2"] then
+  data.raw["recipe"]["enriched-iron"].order = "04"
+  data.raw["recipe"]["enriched-iron-plate"].order = "05"
+end
+data.raw["recipe"]["se-molten-iron"].order = "06"
+data.raw["recipe"]["se-iron-ingot"].order = "07"
+data.raw["recipe"]["se-iron-ingot-to-plate"].order = "08"
+
+-- steel stuff
+data.raw["recipe"]["steel-plate"].order = "09"
+data.raw["recipe"]["se-steel-ingot"].order = "10"
+data.raw["recipe"]["se-steel-ingot-to-plate"].order = "11"
+
+-- copper stuff
+data.raw["recipe"]["se-core-fragment-copper-ore"].order = "01"
+if mods["Krastorio2"] then
+  data.raw["recipe"]["dirty-water-filtration-2"].order = "02"
+end
+data.raw["recipe"]["copper-plate"].order = "03"
+if mods["Krastorio2"] then
+  data.raw["recipe"]["enriched-copper"].order = "04"
+  data.raw["recipe"]["enriched-copper-plate"].order = "05"
+end
+data.raw["recipe"]["se-molten-copper"].order = "06"
+data.raw["recipe"]["se-copper-ingot"].order = "07"
+data.raw["recipe"]["se-copper-ingot-to-plate"].order = "08"
+
+-- rare metals stuff
+if mods["Krastorio2"] then
+  data.raw["recipe"]["se-core-fragment-rare-metals"].order = "01"
+  data.raw["recipe"]["dirty-water-filtration-3"].order = "02"
+  data.raw["recipe"]["rare-metals"].order = "03"
+  data.raw["recipe"]["enriched-rare-metals"].order = "04"
+  data.raw["recipe"]["rare-metals-2"].order = "05"
+  data.raw["recipe"]["rare-metals-vulcanite"].order = "06"
+end
+
+-- imersite stuff
+if mods["Krastorio2"] then
+  data.raw["recipe"]["se-core-fragment-imersite"].order = "01"
+  data.raw["recipe"]["imersite-powder"].order = "02"
+end
+
+-- END RECIPE ORDERING
+
 local molten = "molten"
 local add_cryo = {}
 local add_water = {}
@@ -273,7 +337,8 @@ local function add_cryoslush_cooled_ingot(recipe_name)
   end
   if is_ingot then
     local new_recipe = table.deepcopy(recipe)
-    new_recipe.name = mod_prefix .. "z-cryoslush-cooled-" .. recipe_name
+    new_recipe.name = mod_prefix .. "cryoslush-cooled-" .. recipe_name
+    new_recipe.order = new_recipe.order .. "-02"
     table.insert(new_recipe.ingredients, {type="fluid", name="se-cryonite-slush", amount = 4})
     new_recipe.energy_required = new_recipe.energy_required / 2.5
     --[[for key, ingredient in pairs(new_recipe.ingredients) do
@@ -363,7 +428,8 @@ local function add_water_cooled_ingot(recipe_name)
   end
   if is_ingot then
     local new_recipe = table.deepcopy(recipe)
-    new_recipe.name = mod_prefix .. "a-water-cooled-" .. recipe_name
+    new_recipe.name = mod_prefix .. "water-cooled-" .. recipe_name
+    new_recipe.order = new_recipe.order .. "-01"
     table.insert(new_recipe.ingredients, {type="fluid", name="water", amount = 50})
     table.insert(new_recipe.results, {type = "fluid", name="steam", amount = 25, temperature = 165})
     new_recipe.energy_required = new_recipe.energy_required / 1.5625
@@ -702,4 +768,15 @@ data.raw["technology"]["se-processing-holmium"].effects = {
 }
 data.raw["recipe"]["se-dirty-water-filtration-iridium"] = nil
 data.raw["recipe"]["se-dirty-water-filtration-holmium"] = nil
+]]
+
+--[[
+data.raw["recipe"]["enriched-iron"].order = "a-a-a-04"
+data.raw["recipe"]["dirty-water-filtration-1"].order = "a-a-a-03"
+data.raw["recipe"]["enriched-copper"].order = "a-a-a-05"
+data.raw["recipe"]["dirty-water-filtration-2"].order = "a-a-a-04"
+data.raw["recipe"]["rare-metals"].order = "a-a-a-17"
+data.raw["recipe"]["enriched-rare-metals"].order = "a-a-a-16"
+data.raw["recipe"]["dirty-water-filtration-3"].order = "a-a-a-15"
+data.raw["recipe"]["imersite-powder"].order = "a-a-a-17"
 ]]
