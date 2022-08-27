@@ -338,7 +338,9 @@ local function add_cryoslush_cooled_ingot(recipe_name)
   if is_ingot then
     local new_recipe = table.deepcopy(recipe)
     new_recipe.name = mod_prefix .. "cryoslush-cooled-" .. recipe_name
-    new_recipe.order = new_recipe.order .. "-02"
+    if new_recipe.order ~= nil then
+      new_recipe.order = new_recipe.order .. "-02"
+    end
     table.insert(new_recipe.ingredients, {type="fluid", name="se-cryonite-slush", amount = 4})
     new_recipe.energy_required = new_recipe.energy_required / 2.5
     --[[for key, ingredient in pairs(new_recipe.ingredients) do
@@ -429,7 +431,9 @@ local function add_water_cooled_ingot(recipe_name)
   if is_ingot then
     local new_recipe = table.deepcopy(recipe)
     new_recipe.name = mod_prefix .. "water-cooled-" .. recipe_name
-    new_recipe.order = new_recipe.order .. "-01"
+    if new_recipe.order ~= nil then
+      new_recipe.order = new_recipe.order .. "-01"
+    end
     table.insert(new_recipe.ingredients, {type="fluid", name="water", amount = 50})
     table.insert(new_recipe.results, {type = "fluid", name="steam", amount = 25, temperature = 165})
     new_recipe.energy_required = new_recipe.energy_required / 1.5625
