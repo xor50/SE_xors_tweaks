@@ -52,6 +52,13 @@ data:extend({
   },
   {
     type = "bool-setting",
+    name = mod_prefix .. "enable-no-burning-in-space",
+    setting_type = "startup",
+    default_value = true,
+    order = "025"
+  },
+  {
+    type = "bool-setting",
     name = mod_prefix .. "swap-electrolysis-outputs",
     setting_type = "startup",
     default_value = true,

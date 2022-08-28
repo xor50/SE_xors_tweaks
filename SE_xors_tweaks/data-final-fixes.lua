@@ -31,9 +31,19 @@ if (settings.startup["xor-enable-increased-caster-speed"].value == true) then
   data.raw["assembling-machine"]["se-casting-machine"].energy_usage = casting_machine_energy_usage_old * casting_machine_speed_factor .. "kW"
 end
 
+if (settings.startup["xor-enable-no-burning-in-space"].value == true) then
+  -- Gas Power Station for only not-space to make the Isothermic Generator more useful
+  -- setting up the collision mask stuff yourself seems complicated so I just copy from something that SE changed to now be placeable in space
+  if mods["Krastorio2"] then
+    data.raw["generator"]["kr-gas-power-station"].collision_mask = data.raw["assembling-machine"]["assembling-machine-1"].collision_mask
+  end
+  data.raw["burner-generator"]["burner-turbine"].collision_mask = data.raw["assembling-machine"]["assembling-machine-1"].collision_mask
+  data.raw["boiler"]["boiler"].collision_mask = data.raw["assembling-machine"]["assembling-machine-1"].collision_mask
+end
+
 -- BEGIN RECIPE ORDERING
 
--- stone stuff
+-- stone
 data.raw["recipe"]["se-core-fragment-stone"].order = "01"
 data.raw["recipe"]["sand"].order = "02"
 data.raw["recipe"]["glass"].order = "03"
@@ -44,7 +54,7 @@ if mods["Krastorio2"] then
   data.raw["recipe"]["silicon-vulcanite"].order = "07"
 end
 
--- iron stuff
+-- iron
 data.raw["recipe"]["se-core-fragment-iron-ore"].order = "01"
 if mods["Krastorio2"] then
   data.raw["recipe"]["dirty-water-filtration-1"].order = "02"
@@ -58,12 +68,12 @@ data.raw["recipe"]["se-molten-iron"].order = "06"
 data.raw["recipe"]["se-iron-ingot"].order = "07"
 data.raw["recipe"]["se-iron-ingot-to-plate"].order = "08"
 
--- steel stuff
+-- steel
 data.raw["recipe"]["steel-plate"].order = "09"
 data.raw["recipe"]["se-steel-ingot"].order = "10"
 data.raw["recipe"]["se-steel-ingot-to-plate"].order = "11"
 
--- copper stuff
+-- copper
 data.raw["recipe"]["se-core-fragment-copper-ore"].order = "01"
 if mods["Krastorio2"] then
   data.raw["recipe"]["dirty-water-filtration-2"].order = "02"
@@ -77,7 +87,7 @@ data.raw["recipe"]["se-molten-copper"].order = "06"
 data.raw["recipe"]["se-copper-ingot"].order = "07"
 data.raw["recipe"]["se-copper-ingot-to-plate"].order = "08"
 
--- rare metals stuff
+-- rare metals
 if mods["Krastorio2"] then
   data.raw["recipe"]["se-core-fragment-rare-metals"].order = "01"
   data.raw["recipe"]["dirty-water-filtration-3"].order = "02"
@@ -87,13 +97,53 @@ if mods["Krastorio2"] then
   data.raw["recipe"]["rare-metals-vulcanite"].order = "06"
 end
 
--- imersite stuff
+-- imersite
 if mods["Krastorio2"] then
   data.raw["recipe"]["se-core-fragment-imersite"].order = "01"
   data.raw["recipe"]["imersite-powder"].order = "02"
 end
 
 -- END RECIPE ORDERING
+
+-- BEGIN ITEM ORDERING
+
+-- stone
+data.raw["item"]["se-core-fragment-stone"].order = "01"
+data.raw["item"]["stone"].order = "02"
+data.raw["item"]["sand"].order = "03"
+data.raw["item"]["glass"].order = "04"
+if mods["Krastorio2"] then
+  data.raw["item"]["quartz"].order = "05"
+  data.raw["item"]["silicon"].order = "06"
+end
+
+-- iron
+data.raw["item"]["se-core-fragment-iron-ore"].order = "01"
+data.raw["item"]["iron-ore"].order = "02"
+if mods["Krastorio2"] then
+  data.raw["item"]["enriched-iron"].order = "03"
+end
+data.raw["item"]["se-iron-ingot"].order = "04"
+data.raw["item"]["iron-plate"].order = "05"
+
+-- copper
+data.raw["item"]["se-core-fragment-copper-ore"].order = "01"
+data.raw["item"]["copper-ore"].order = "02"
+if mods["Krastorio2"] then
+  data.raw["item"]["enriched-copper"].order = "03"
+end
+data.raw["item"]["se-copper-ingot"].order = "04"
+data.raw["item"]["copper-plate"].order = "05"
+
+-- rare metals
+if mods["Krastorio2"] then
+  data.raw["item"]["se-core-fragment-rare-metals"].order = "01"
+  data.raw["item"]["raw-rare-metals"].order = "02"
+  data.raw["item"]["enriched-rare-metals"].order = "03"
+  data.raw["item"]["rare-metals"].order = "04"
+end
+
+-- END ITEM ORDERING
 
 local molten = "molten"
 local add_cryo = {}
@@ -435,7 +485,9 @@ local function add_water_cooled_ingot(recipe_name)
       new_recipe.order = new_recipe.order .. "-01"
     end
     table.insert(new_recipe.ingredients, {type="fluid", name="water", amount = 50})
-    table.insert(new_recipe.results, {type = "fluid", name="steam", amount = 25, temperature = 165})
+    if new_recipe.results ~= nil then
+      table.insert(new_recipe.results, {type = "fluid", name="steam", amount = 25, temperature = 165})
+    end
     new_recipe.energy_required = new_recipe.energy_required / 1.5625
 
     -- list all bz mods here (and possibly other mods as well), needs updating for new releases
