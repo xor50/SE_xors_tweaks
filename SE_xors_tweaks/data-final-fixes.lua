@@ -45,8 +45,10 @@ end
 
 -- stone
 data.raw["recipe"]["se-core-fragment-stone"].order = "01"
-data.raw["recipe"]["sand"].order = "02"
-data.raw["recipe"]["glass"].order = "03"
+if mods["Krastorio2"] then -- while SE and AAI have sand (and glass) the recipe name is different to the K2 name; the order of those without K2 seems correct per default
+  data.raw["recipe"]["sand"].order = "02"
+  data.raw["recipe"]["glass"].order = "03"
+end
 data.raw["recipe"]["se-glass-vulcanite"].order = "04"
 if mods["Krastorio2"] then
   data.raw["recipe"]["quartz"].order = "05"

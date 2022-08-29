@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.16
+Date: 2022-08-29
+  Bugfixes:
+    - Fixed some nil issues preventing the game from starting up when K2 was not enabled. (The reason was some recipes - that actually produce the same resource - being named differently in K2 vs SE/AAI)
+---------------------------------------------------------------------------------------------------
 Version: 1.2.15
 Date: 2022-08-28
   Features:
