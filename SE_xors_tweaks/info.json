@@ -1,6 +1,6 @@
 {
 	"name": "SE_xors_tweaks",
-	"version": "1.2.16",
+	"version": "1.2.17",
 	"title": "xors (optional) Space Exploration (+ Krastorio 2) tweaks and additions",
 	"author": "xor, with some code from Wretlaw120 & Rekales",
 	"description": "Tweaks and additions of various small things for SE (and K2 if installed). All toggleable via settings! Check mod description for list.",
@@ -12,6 +12,7 @@
 	"? Krastorio2 >= 1.3.0",
 	"? SE_smaller_rad_buffers >= 1.0.5",
 	"? aai-motor-speed-tweak-new-recipes",
+	"? advanced_centrifuge",
 	"? bzaluminum",
 	"? bzcarbon",
 	"? bzlead",

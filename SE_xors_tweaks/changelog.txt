@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.17
+Date: 2022-09-03
+  Bugfixes:
+    - Fixed output for steam from Casting Machine using the water-cooling recipe accidentally being marked as in/out instead.
+  Info:
+    - New mod: Advanced Centrifuge - added it as optional dependency! I decided that it's better as extra mod instead of adding it to this one. It's 100% in the spirit of this mod.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.16
 Date: 2022-08-29
   Bugfixes:
