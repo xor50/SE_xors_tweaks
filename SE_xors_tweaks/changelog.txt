@@ -1,10 +1,22 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.18
+Date: 2022-09-08
+  Changes:
+    - (K2) Mineral Water filtration recipe:
+      > 25% faster
+      > now requires some Sand as filter substrate
+      > more efficient: less water loss
+      > fixed it accidentally giving Rare Metals instead of the intended Raw Rare Metals
+      > now also gives Sulfur
+      > rebalanced the other output numbers slightly
+---------------------------------------------------------------------------------------------------
 Version: 1.2.17
 Date: 2022-09-03
   Bugfixes:
     - Fixed output for steam from Casting Machine using the water-cooling recipe accidentally being marked as in/out instead.
   Info:
-    - New mod: Advanced Centrifuge - added it as optional dependency! I decided that it's better as extra mod instead of adding it to this one. It's 100% in the spirit of this mod.
+    - New mod: Advanced Centrifuge - added it as optional dependency!
+      I decided that it's better as extra mod instead of adding it to this one. It's 100% in the spirit of this mod.
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.16
 Date: 2022-08-29

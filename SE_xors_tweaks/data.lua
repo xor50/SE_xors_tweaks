@@ -94,7 +94,7 @@ if mods["Krastorio2"] then
       {
         type = "recipe",
         name = mod_prefix .. "mineral-water-filtering",
-        energy_required = 4,
+        energy_required = 3,
         enabled = false,
         category = "fluid-filtration",
         subgroup = "raw-material",
@@ -109,14 +109,17 @@ if mods["Krastorio2"] then
         },
         ingredients =
         {
-          {type="fluid", name="mineral-water", amount = 100}
+          {type="fluid", name="mineral-water", amount = 100},
+          {type="item", name="sand", amount = 8},
         },
         results = {
-          {type="fluid", name="dirty-water", amount = 50},
-          {type="item", name="sand", amount_min = 1, amount_max = 5},
-          {type="item", name="quartz", probability = 0.15, amount = 1},
-          {type="item", name="rare-metals", probability = 0.05, amount = 1},
-          {type="item", name="lithium", probability = 0.05, amount = 1}
+          {type="fluid", name="dirty-water", amount = 80},
+          --{type="item", name="sand", amount_min = 1, amount_max = 5},
+          {type="item", name="sand", probability = 0.80, amount = 1},
+          {type="item", name="quartz", probability = 0.08, amount = 1},
+          {type="item", name="raw-rare-metals", probability = 0.08, amount = 1},
+          {type="item", name="lithium", probability = 0.08, amount = 1},
+          {type="item", name="sulfur", probability = 0.08, amount = 1}
         },
         --main_product = "dirty-water", -- overwrites manual naming in locale if set
         order = item_name,
