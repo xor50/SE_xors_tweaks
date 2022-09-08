@@ -87,7 +87,7 @@ data:extend({
   },
   {
     type = "bool-setting",
-    name = mod_prefix .. "enable-mineral-water-filtering",
+    name = mod_prefix .. "enable-mineral-water-recipes",
     setting_type = "startup",
     default_value = true,
     order = "112"

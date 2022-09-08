@@ -1,14 +1,22 @@
 ---------------------------------------------------------------------------------------------------
-Version: 1.2.18
+Version: 1.3.0
 Date: 2022-09-08
+  Features:
+    - new (K2) recipe: Mineral Water boiling
+      > allows some unusual resource extraction from Mineral Water
+      > equivalent to the filtering option, but the other way round: do it for the resources instead for the water
   Changes:
     - (K2) Mineral Water filtration recipe:
       > 25% faster
       > now requires some Sand as filter substrate
       > more efficient: less water loss
       > fixed it accidentally giving Rare Metals instead of the intended Raw Rare Metals
+      > now gives Lithium Chloride instead of Lithium
       > now also gives Sulfur
-      > rebalanced the other output numbers slightly
+      > rebalanced the output numbers slightly
+    - Updated the Mineral Water feature mod setting to include the new feature.
+  Info:
+    - started doing some internal code restructuring
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.17
 Date: 2022-09-03
