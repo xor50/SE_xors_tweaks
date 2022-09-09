@@ -115,6 +115,13 @@ data:extend({
   },
   {
     type = "bool-setting",
+    name = mod_prefix .. "disable-k2-graphics",
+    setting_type = "startup",
+    default_value = false,
+    order = "116"
+  },
+  {
+    type = "bool-setting",
     name = mod_prefix .. "enable-aai-furnace-module-balancing",
     setting_type = "startup",
     default_value = true,

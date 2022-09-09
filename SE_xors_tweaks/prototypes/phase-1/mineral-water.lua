@@ -3,43 +3,43 @@ local mod_prefix = "xor-"
 
 -- filtering recipe
 data:extend{{
-    type = "recipe",
-    name = mod_prefix .. "mineral-water-filtering",
-    energy_required = 3,
-    enabled = false,
-    category = "fluid-filtration",
-    subgroup = "raw-material",
-    icons = {
-      {icon = data.raw["fluid"]["dirty-water"].icon, icon_size = data.raw["fluid"]["dirty-water"].icon_size},
-      {
-        icon = data.raw.fluid["mineral-water"].icon,
-        icon_size = data.raw.fluid["mineral-water"].icon_size,
-        scale = 0.33*64/data.raw.fluid["mineral-water"].icon_size,
-        shift = {5, 5}
-      },
-    },
-    ingredients =
+  type = "recipe",
+  name = mod_prefix .. "mineral-water-filtering",
+  energy_required = 3,
+  enabled = false,
+  category = "fluid-filtration",
+  subgroup = "raw-material",
+  icons = {
+    {icon = data.raw["fluid"]["dirty-water"].icon, icon_size = data.raw["fluid"]["dirty-water"].icon_size},
     {
-      {type="fluid", name="mineral-water", amount = 100},
-      {type="item", name="sand", amount = 8},
+      icon = data.raw.fluid["mineral-water"].icon,
+      icon_size = data.raw.fluid["mineral-water"].icon_size,
+      scale = 0.33*64/data.raw.fluid["mineral-water"].icon_size,
+      shift = {5, 5}
     },
-    results = {
-      {type="fluid", name="dirty-water", amount = 80},
-      --{type="item", name="sand", amount_min = 1, amount_max = 5},
-      {type="item", name="sand", probability = 0.80, amount = 1},
-      {type="item", name="quartz", probability = 0.08, amount = 1},
-      {type="item", name="raw-rare-metals", probability = 0.08, amount = 1},
-      {type="item", name="lithium-chloride", probability = 0.08, amount = 1},
-      {type="item", name="sulfur", probability = 0.08, amount = 1}
-    },
-    --main_product = "dirty-water", -- overwrites manual naming in locale if set
-    order = item_name,
-    allow_decomposition = false,
-    crafting_machine_tint = {
-      primary = { r = 0.96, g = 0.64, b = 0.38, a = 0.6 }, --dirty
-      secondary = { r = 0.55, g = 0.55, b = 0.51, a = 0.5 }, --clear
-    }
-  }}
+  },
+  ingredients =
+  {
+    {type="fluid", name="mineral-water", amount = 100},
+    {type="item", name="sand", amount = 8},
+  },
+  results = {
+    {type="fluid", name="dirty-water", amount = 80},
+    --{type="item", name="sand", amount_min = 1, amount_max = 5},
+    {type="item", name="sand", probability = 0.80, amount = 1},
+    {type="item", name="quartz", probability = 0.08, amount = 1},
+    {type="item", name="raw-rare-metals", probability = 0.08, amount = 1},
+    {type="item", name="lithium-chloride", probability = 0.08, amount = 1},
+    {type="item", name="sulfur", probability = 0.08, amount = 1}
+  },
+  --main_product = "dirty-water", -- overwrites manual naming in locale if set
+  order = item_name,
+  allow_decomposition = false,
+  crafting_machine_tint = {
+    primary = { r = 0.96, g = 0.64, b = 0.38, a = 0.6 }, --dirty
+    secondary = { r = 0.55, g = 0.55, b = 0.51, a = 0.5 }, --clear
+  }
+}}
 
 -- filtering tech
 data:extend{{

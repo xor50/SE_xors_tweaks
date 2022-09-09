@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.3.1
+Date: 2022-09-09
+  Features:
+    - (K2) option to disable K2 graphics changes of some things like plates, also disables the fix mention below (default: off)
+  Bugfixes:
+    - (K2) fixed wrong colors for iron and steel in some recipes to now hopefully fit the color scheme from K2 much better
+  Info:
+    - continuation of the internal code restructuring
+---------------------------------------------------------------------------------------------------
 Version: 1.3.0
 Date: 2022-09-08
   Features:
