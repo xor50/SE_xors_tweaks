@@ -7,10 +7,12 @@ local ingot = "ingot"
 --local boost = 0.9
 
 if mods["Krastorio2"] then
-  data.raw["recipe"]["se-steel-ingot"].ingredients = {
-    { type="item", name="coke", amount = 5 }, --6
-    { type="fluid", name="se-molten-iron", amount = 450 } --500
-  }
+  if (settings.startup["xor-enable-steel-casting-balance"].value == true) then
+    data.raw["recipe"]["se-steel-ingot"].ingredients = {
+      { type="item", name="coke", amount = 5 }, --6
+      { type="fluid", name="se-molten-iron", amount = 450 } --500
+    }
+  end
 end
 
 local denseness_factor = 1 -- default: make not denser

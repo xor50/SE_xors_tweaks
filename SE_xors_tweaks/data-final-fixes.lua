@@ -345,20 +345,20 @@ if mods["Krastorio2"] then
 
     data.raw["recipe"]["se-dirty-water-filtration-iridium"].normal.results = {
       {type = "fluid", name = "water", amount = 90},
-      {name = "stone", probability = 0.30, amount = 1},
+      {name = "stone", probability = 0.40, amount = 1},
       --{name = "se-iridium-ore-crushed", probability = 0.10, amount = 1},
-      {name = "se-iridium-ore-crushed", probability = 0.50, amount = 1},
+      {name = "se-iridium-ore-crushed", probability = 0.60, amount = 1},
       --{name = "se-vulcanite-ion-exchange-beads", probability = 0.6, amount =1}
-      {name = "se-vulcanite-ion-exchange-beads", probability = 0.7, amount =1}
+      {name = "se-vulcanite-ion-exchange-beads", probability = 0.8, amount =1}
     }
 
     data.raw["recipe"]["se-dirty-water-filtration-holmium"].normal.results = {
       {type = "fluid", name = "water", amount = 90},
-      {name = "stone", probability = 0.30, amount = 1},
+      {name = "stone", probability = 0.40, amount = 1},
       --{name = "se-holmium-ore-crushed", probability = 0.10, amount = 1},
-      {name = "se-holmium-ore-crushed", probability = 0.50, amount = 1},
+      {name = "se-holmium-ore-crushed", probability = 0.60, amount = 1},
       --{name = "se-cryonite-ion-exchange-beads", probability = 0.6, amount =1}
-      {name = "se-cryonite-ion-exchange-beads", probability = 0.7, amount =1}
+      {name = "se-cryonite-ion-exchange-beads", probability = 0.8, amount =1}
     }
 
   end
@@ -387,12 +387,19 @@ if mods["Krastorio2"] then
         data_util_SE_PP.sub_icons("__base__/graphics/icons/copper-plate.png", data.raw["item"]["enriched-copper"].icon)
 
     -- steel (from ingot)
-    data.raw["item"]["steel-plate"].icon = "__base__/graphics/icons/steel-plate.png"
+    -- vanilla steel "plate" is actually a beam... which is already in use by K2
+    -- that's why we use a different graphic instead, silver plate from: https://github.com/kirazy/reskins-angels/blob/master/graphics/icons/smelting/plates/angels-plate-silver.png
+    -- it fits the SE steel ingot color so well they now look a bit too similar but *shrug*
+    --[[data.raw["item"]["steel-plate"].icon = "__base__/graphics/icons/steel-plate.png"]]
+    data.raw["item"]["steel-plate"].icon = "__SE_xors_tweaks__/graphics/icons/angels-plate-silver.png"
+    --[[data.raw.recipe["se-steel-ingot-to-plate"].icons =
+        data_util_SE_PP.sub_icons("__base__/graphics/icons/steel-plate.png", "__space-exploration-graphics__/graphics/icons/steel-ingot.png")]]
     data.raw.recipe["se-steel-ingot-to-plate"].icons =
-        data_util_SE_PP.sub_icons("__base__/graphics/icons/steel-plate.png", "__space-exploration-graphics__/graphics/icons/steel-ingot.png")
+        data_util_SE_PP.sub_icons("__SE_xors_tweaks__/graphics/icons/angels-plate-silver.png", "__space-exploration-graphics__/graphics/icons/steel-ingot.png")
 
     -- use AAI sand
     data.raw["item"]["sand"].icon = "__aai-industry__/graphics/icons/sand.png"
+    data.raw["item"]["sand"].pictures = nil -- needed because K2 uses the different-icon-variants for sand-on-ground feature
   end
 
   -- only if non-K2 graphics from above are NOT used:

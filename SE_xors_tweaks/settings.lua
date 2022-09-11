@@ -148,4 +148,11 @@ data:extend({
     default_value = true,
     order = "124"
   },
+  {
+    type = "bool-setting",
+    name = mod_prefix .. "enable-steel-casting-balance",
+    setting_type = "startup",
+    default_value = true,
+    order = "125"
+  },
 })
