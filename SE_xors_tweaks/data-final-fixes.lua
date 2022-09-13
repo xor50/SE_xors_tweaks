@@ -422,3 +422,17 @@ if mods["Krastorio2"] then
 end
 
 require("prototypes/phase-3/casting")
+
+if (settings.startup["xor-enable-alt-recipe-tweaks"].value == true) then
+  require("prototypes/phase-3/alt-recipes")
+end
+
+
+-- make lithium chain not chloride positive with prod modules... actually the whole chain is positive, that's not fixable by using catalyst here
+--[[
+data.raw.recipe["lithium"].results = {
+  { type = "fluid", name = "chlorine", amount = 10, catalyst_amount = 10.0 },
+  { type = "item", name = "lithium", amount = 5 },
+}
+data.raw.recipe["lithium"].main_product = "lithium"
+]]

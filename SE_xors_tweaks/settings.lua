@@ -24,6 +24,13 @@ data:extend({
   },
   {
     type = "bool-setting",
+    name = mod_prefix .. "enable-alt-recipe-tweaks",
+    setting_type = "startup",
+    default_value = true,
+    order = "014"
+  },
+  {
+    type = "bool-setting",
     name = mod_prefix .. "enable-increased-molten-density",
     setting_type = "startup",
     default_value = true,

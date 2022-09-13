@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.3.3
+Date: 2022-09-13
+  Features:
+    - Enable tweaks to alternative recipes:
+      > Improves the alt recipe of the Multispectral Mirror slightly as it was just not good enough to use.
+      > K2: Adds an alt recipe for RCUs using the Li-S battery recipe.
+      > K2: Adds an alt recipe for Flying Robot Frames using the Li-S battery recipe.
+      - I will look out for other alternate recipes that could use some tweaks.
+---------------------------------------------------------------------------------------------------
 Version: 1.3.2
 Date: 2022-09-10
   Features:
