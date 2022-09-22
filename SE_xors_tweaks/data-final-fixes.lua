@@ -1,5 +1,7 @@
 local mod_prefix = "xor-"
 
+local data_util_SE = require("__space-exploration__/data_util")
+
 if mods["Krastorio2"] then
 
   if (settings.startup["xor-enable-robot-cargo-fix"].value == true) then
@@ -235,7 +237,6 @@ if mods["Krastorio2"] then
 end
 
 --local electric_boiling = require("__space-exploration__/prototypes/phase-3/electric-boiling.lua")
-local data_util_SE = require("__space-exploration__/data_util")
 
 local heat_capacity = data_util_SE.string_to_number(data.raw.fluid.steam.heat_capacity)
 local boiler_power = 5000000
@@ -397,6 +398,22 @@ if mods["Krastorio2"] then
     data.raw.recipe["se-steel-ingot-to-plate"].icons =
         data_util_SE_PP.sub_icons("__SE_xors_tweaks__/graphics/icons/angels-plate-silver.png", "__space-exploration-graphics__/graphics/icons/steel-ingot.png")
 
+    -- at this point the steel icon has changed, so we can just use the exact SE code to do this
+    data.raw.recipe["se-empty-barrel-reprocessing"].icons = data_util_SE.transition_icons(
+      {
+        icon = data.raw.item["empty-barrel"].icon,
+        icon_size = data.raw.item["empty-barrel"].icon_size, scale = 0.5
+      },
+      {
+        icon = data.raw.item["steel-plate"].icon,
+        icon_size = data.raw.item["steel-plate"].icon_size, scale = 0.5
+      }
+    )
+
+    -- same here
+    data.raw.recipe["se-observation-frame-blank"].icons =
+        data_util_SE.sub_icons("__space-exploration-graphics__/graphics/icons/observation-frame-blank.png", data.raw.item["steel-plate"].icon)
+
     -- use AAI sand
     data.raw["item"]["sand"].icon = "__aai-industry__/graphics/icons/sand.png"
     data.raw["item"]["sand"].pictures = nil -- needed because K2 uses the different-icon-variants for sand-on-ground feature
@@ -418,6 +435,25 @@ if mods["Krastorio2"] then
         data_util_SE_PP.sub_icons("__space-exploration-graphics__/graphics/icons/iron-ingot.png", data.raw.fluid["se-molten-iron"].icon)
     data.raw.recipe["se-iron-ingot"].icons =
         data_util_SE_PP.sub_icons("__space-exploration-graphics__/graphics/icons/steel-ingot.png", data.raw.fluid["se-molten-iron"].icon)
+
+    -- at this point the steel icon has changed, so we can just use the exact SE code to do this
+    data.raw.recipe["se-empty-barrel-reprocessing"].icons = data_util_SE.transition_icons(
+      {
+        icon = data.raw.item["empty-barrel"].icon,
+        icon_size = data.raw.item["empty-barrel"].icon_size, scale = 0.5
+      },
+      {
+        icon = data.raw.item["steel-plate"].icon,
+        icon_size = data.raw.item["steel-plate"].icon_size, scale = 0.5
+      }
+    )
+
+    -- same here
+    data.raw.recipe["se-observation-frame-blank"].icons =
+        data_util_SE.sub_icons("__space-exploration-graphics__/graphics/icons/observation-frame-blank.png", data.raw.item["steel-plate"].icon)
+
+    data.raw.recipe["se-delivery-cannon-pack-se-iron-ingot"].icon = "__space-exploration-graphics__/graphics/icons/steel-ingot.png"
+    data.raw.recipe["se-delivery-cannon-pack-se-steel-ingot"].icon = "__space-exploration-graphics__/graphics/icons/iron-ingot.png"
   end
 end
 
