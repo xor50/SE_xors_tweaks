@@ -274,7 +274,8 @@ local function add_cryoslush_cooled_ingot(recipe_name)
         scale = 0.25,
         shift = {7,7}
       })
-    elseif data.raw["item"][recipe.name].icons then
+    elseif data.raw["item"][recipe.name] and data.raw["item"][recipe.name].icons then
+      new_recipe.main_product = recipe.name
       new_recipe.icons = table.deepcopy(data.raw["item"][recipe.name].icons)
       table.insert(new_recipe.icons,
       {
@@ -283,7 +284,8 @@ local function add_cryoslush_cooled_ingot(recipe_name)
         scale = 0.25,
         shift = {7,7}
       })
-    elseif data.raw["item"][recipe.name].icon then
+    elseif data.raw["item"][recipe.name] and data.raw["item"][recipe.name].icon then
+      new_recipe.main_product = recipe.name
       new_recipe.icons =
       {{
           icon = data.raw["item"][recipe.name].icon,
@@ -295,6 +297,100 @@ local function add_cryoslush_cooled_ingot(recipe_name)
           scale = 0.25,
           shift = {7,7}
       }}
+      -- START1: from here until next comment: honestly no idea what it does, just copied a patch file for some compatibility
+      elseif data.raw["item"][recipe.main_product] and data.raw["item"][recipe.main_product].icons then
+        new_recipe.main_product = recipe.main_product
+        new_recipe.icons = table.deepcopy(data.raw["item"][recipe.main_product].icons)
+        table.insert(new_recipe.icons,
+        {
+          icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+          icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+          scale = 0.25,
+          shift = {7,7}
+        })
+      elseif data.raw["item"][recipe.main_product] and data.raw["item"][recipe.main_product].icon then
+        new_recipe.main_product = recipe.main_product
+        new_recipe.icons =
+        {{
+            icon = data.raw["item"][recipe.main_product].icon,
+            icon_size = data.raw["item"][recipe.main_product].icon_size,
+          },
+          {
+            icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+            icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+            scale = 0.25,
+            shift = {7,7}
+        }}
+      elseif data.raw["item"][recipe.result] and data.raw["item"][recipe.result].icons then
+        new_recipe.main_product = recipe.result
+        new_recipe.icons = table.deepcopy(data.raw["item"][recipe.result].icons)
+        table.insert(new_recipe.icons,
+        {
+          icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+          icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+          scale = 0.25,
+          shift = {7,7}
+        })
+      elseif data.raw["item"][recipe.result] and data.raw["item"][recipe.result].icon then
+        new_recipe.main_product = recipe.result
+        new_recipe.icons =
+        {{
+            icon = data.raw["item"][recipe.result].icon,
+            icon_size = data.raw["item"][recipe.result].icon_size,
+          },
+          {
+            icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+            icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+            scale = 0.25,
+            shift = {7,7}
+        }}
+      elseif data.raw["item"][recipe.results[1][1]] and data.raw["item"][recipe.results[1][1]].icons then
+        new_recipe.main_product = recipe.results[1][1]
+        new_recipe.icons = table.deepcopy(data.raw["item"][recipe.results[1][1]].icons)
+        table.insert(new_recipe.icons,
+        {
+          icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+          icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+          scale = 0.25,
+          shift = {7,7}
+        })
+      elseif data.raw["item"][recipe.results[1][1]] and data.raw["item"][recipe.results[1][1]].icon then
+        new_recipe.main_product = recipe.results[1][1]
+        new_recipe.icons =
+        {{
+            icon = data.raw["item"][recipe.results[1][1]].icon,
+            icon_size = data.raw["item"][recipe.results[1][1]].icon_size,
+          },
+          {
+            icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+            icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+            scale = 0.25,
+            shift = {7,7}
+        }}
+      elseif data.raw["item"][recipe.results[1].name] and data.raw["item"][recipe.results[1].name].icons then
+        new_recipe.main_product = recipe.results[1].name
+        new_recipe.icons = table.deepcopy(data.raw["item"][recipe.results[1].name].icons)
+        table.insert(new_recipe.icons,
+        {
+          icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+          icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+          scale = 0.25,
+          shift = {7,7}
+        })
+      elseif data.raw["item"][recipe.results[1].name] and data.raw["item"][recipe.results[1].name].icon then
+        new_recipe.main_product = recipe.results[1].name
+        new_recipe.icons =
+        {{
+            icon = data.raw["item"][recipe.results[1].name].icon,
+            icon_size = data.raw["item"][recipe.results[1].name].icon_size,
+          },
+          {
+            icon = data.raw["fluid"]["se-cryonite-slush"].icon,
+            icon_size = data.raw["fluid"]["se-cryonite-slush"].icon_size,
+            scale = 0.25,
+            shift = {7,7}
+        }}
+    -- END1: honestly no idea what it does, just copied a patch file for some compatibility
     elseif data.raw["recipe"][recipe.name].icon then
       new_recipe.icons =
       {{
@@ -388,7 +484,8 @@ local function add_water_cooled_ingot(recipe_name)
         scale = 0.25,
         shift = {7,7}
       })
-    elseif data.raw["item"][recipe.name].icons then
+    elseif data.raw["item"][recipe.name] and data.raw["item"][recipe.name].icons then
+      new_recipe.main_product = recipe.name
       new_recipe.icons = table.deepcopy(data.raw["item"][recipe.name].icons)
       table.insert(new_recipe.icons,
       {
@@ -397,7 +494,8 @@ local function add_water_cooled_ingot(recipe_name)
         scale = 0.25,
         shift = {7,7}
       })
-    elseif data.raw["item"][recipe.name].icon then
+    elseif data.raw["item"][recipe.name] and data.raw["item"][recipe.name].icon then
+      new_recipe.main_product = recipe.name
       new_recipe.icons =
       {{
           icon = data.raw["item"][recipe.name].icon,
@@ -409,6 +507,100 @@ local function add_water_cooled_ingot(recipe_name)
           scale = 0.25,
           shift = {7,7}
       }}
+      -- START2: from here until next comment: honestly no idea what it does, just copied a patch file for some compatibility
+      elseif data.raw["item"][recipe.main_product] and data.raw["item"][recipe.main_product].icons then
+          new_recipe.main_product = recipe.main_product
+          new_recipe.icons = table.deepcopy(data.raw["item"][recipe.main_product].icons)
+          table.insert(new_recipe.icons,
+          {
+            icon = data.raw["fluid"]["water"].icon,
+            icon_size = data.raw["fluid"]["water"].icon_size,
+            scale = 0.25,
+            shift = {7,7}
+          })
+        elseif data.raw["item"][recipe.main_product] and data.raw["item"][recipe.main_product].icon then
+          new_recipe.main_product = recipe.main_product
+          new_recipe.icons =
+          {{
+              icon = data.raw["item"][recipe.main_product].icon,
+              icon_size = data.raw["item"][recipe.main_product].icon_size,
+            },
+            {
+              icon = data.raw["fluid"]["water"].icon,
+              icon_size = data.raw["fluid"]["water"].icon_size,
+              scale = 0.25,
+              shift = {7,7}
+          }}
+        elseif data.raw["item"][recipe.result] and data.raw["item"][recipe.result].icons then
+          new_recipe.main_product = recipe.result
+          new_recipe.icons = table.deepcopy(data.raw["item"][recipe.result].icons)
+          table.insert(new_recipe.icons,
+          {
+            icon = data.raw["fluid"]["water"].icon,
+            icon_size = data.raw["fluid"]["water"].icon_size,
+            scale = 0.25,
+            shift = {7,7}
+          })
+        elseif data.raw["item"][recipe.result] and data.raw["item"][recipe.result].icon then
+          new_recipe.main_product = recipe.result
+          new_recipe.icons =
+          {{
+              icon = data.raw["item"][recipe.result].icon,
+              icon_size = data.raw["item"][recipe.result].icon_size,
+            },
+            {
+              icon = data.raw["fluid"]["water"].icon,
+              icon_size = data.raw["fluid"]["water"].icon_size,
+              scale = 0.25,
+              shift = {7,7}
+          }}
+        elseif data.raw["item"][recipe.results[1][1]] and data.raw["item"][recipe.results[1][1]].icons then
+          new_recipe.main_product = recipe.results[1][1]
+          new_recipe.icons = table.deepcopy(data.raw["item"][recipe.results[1][1]].icons)
+          table.insert(new_recipe.icons,
+          {
+            icon = data.raw["fluid"]["water"].icon,
+            icon_size = data.raw["fluid"]["water"].icon_size,
+            scale = 0.25,
+            shift = {7,7}
+          })
+        elseif data.raw["item"][recipe.results[1][1]] and data.raw["item"][recipe.results[1][1]].icon then
+          new_recipe.main_product = recipe.results[1][1]
+          new_recipe.icons =
+          {{
+              icon = data.raw["item"][recipe.results[1][1]].icon,
+              icon_size = data.raw["item"][recipe.results[1][1]].icon_size,
+            },
+            {
+              icon = data.raw["fluid"]["water"].icon,
+              icon_size = data.raw["fluid"]["water"].icon_size,
+              scale = 0.25,
+              shift = {7,7}
+          }}
+        elseif data.raw["item"][recipe.results[1].name] and data.raw["item"][recipe.results[1].name].icons then
+          new_recipe.main_product = recipe.results[1].name
+          new_recipe.icons = table.deepcopy(data.raw["item"][recipe.results[1].name].icons)
+          table.insert(new_recipe.icons,
+          {
+            icon = data.raw["fluid"]["water"].icon,
+            icon_size = data.raw["fluid"]["water"].icon_size,
+            scale = 0.25,
+            shift = {7,7}
+          })
+        elseif data.raw["item"][recipe.results[1].name] and data.raw["item"][recipe.results[1].name].icon then
+          new_recipe.main_product = recipe.results[1].name
+          new_recipe.icons =
+          {{
+              icon = data.raw["item"][recipe.results[1].name].icon,
+              icon_size = data.raw["item"][recipe.results[1].name].icon_size,
+            },
+            {
+              icon = data.raw["fluid"]["water"].icon,
+              icon_size = data.raw["fluid"]["water"].icon_size,
+              scale = 0.25,
+              shift = {7,7}
+          }}
+    -- END2: honestly no idea what it does, just copied a patch file for some compatibility
     elseif data.raw["recipe"][recipe.name].icon then
       new_recipe.icons =
       {{
